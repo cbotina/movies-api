@@ -6,21 +6,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles, User } from './entities/user.entity';
 import { UsersService } from './users.service';
-
-type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
-const createMockRepository = <T = any>(): MockRepository<T> => ({
-  findOneBy: jest.fn(),
-  save: jest.fn(),
-  findOneById: jest.fn(),
-  delete: jest.fn(),
-  preload: jest.fn(),
-});
+import {
+  MockRepository,
+  createMockRepository,
+} from '../../test/helpers/mock-repository';
 
 describe('UsersService', () => {
   let service: UsersService;
   let usersRepository: MockRepository;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
