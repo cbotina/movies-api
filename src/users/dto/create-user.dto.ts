@@ -1,5 +1,18 @@
-import { IsNotEmpty, IsString, MaxLength, IsEmail } from 'class-validator';
-import { Roles } from '../entities/user.entity';
+import {
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  IsEmail,
+  IsStrongPasswordOptions,
+  IsStrongPassword,
+} from 'class-validator';
+
+const passwordOptions: IsStrongPasswordOptions = {
+  minLength: 8,
+  minUppercase: 1,
+  minNumbers: 1,
+  minSymbols: 1,
+};
 
 export class CreateUserDto {
   @MaxLength(50)
@@ -12,12 +25,13 @@ export class CreateUserDto {
   @IsString()
   surname: string;
 
-  @MaxLength(50)
-  @IsNotEmpty()
+  @IsStrongPassword(passwordOptions)
+  @MaxLength(30)
   @IsString()
-  username: string;
+  @IsNotEmpty()
+  password: string;
 
-  @MaxLength(50)
+  @MaxLength(64)
   @IsNotEmpty()
   @IsEmail()
   email: string;

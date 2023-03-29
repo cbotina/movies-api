@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { hash } from 'bcrypt';
+import { plainToInstance } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -12,8 +14,15 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.usersRepository.save(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const { password } = createUserDto;
+    const hashedPassword = await hash(password, 10);
+
+    const createdUser = await this.usersRepository.create(createUserDto);
+    createdUser.password = hashedPassword;
+
+    const result = this.usersRepository.save(createdUser);
+    return plainToInstance(User, result);
   }
 
   findAll() {
@@ -25,6 +34,16 @@ export class UsersService {
 
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
+    }
+
+    return user;
+  }
+
+  async findOneByEmail(email: string) {
+    const user = await this.usersRepository.findOneBy({ email });
+
+    if (!user) {
+      throw new NotFoundException(`User not found`);
     }
 
     return user;

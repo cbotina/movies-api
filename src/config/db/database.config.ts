@@ -11,7 +11,7 @@ export const dbConfig = (
     username: configService.get('database.username'),
     password: configService.get('database.password'),
     database: configService.get('database.database'),
-    entities: configService.get('database.entities'),
+    autoLoadEntities: true,
     synchronize: true,
   };
 };

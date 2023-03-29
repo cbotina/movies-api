@@ -5,9 +5,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { environments } from './config/environments';
-import { dbConfig } from './db/database.config';
+import { dbConfig } from './config/db/database.config';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
+import { RentingModule } from './renting/renting.module';
+import { BuyingModule } from './buying/buying.module';
+import { ReturningModule } from './returning/returning.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,6 +26,10 @@ import { MoviesModule } from './movies/movies.module';
       inject: [ConfigService],
     }),
     MoviesModule,
+    RentingModule,
+    BuyingModule,
+    ReturningModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

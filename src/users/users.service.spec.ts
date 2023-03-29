@@ -43,12 +43,12 @@ describe('UsersService', () => {
   });
 
   describe('Create User', () => {
-    it('should return the created user', async () => {
+    it('should return the created user without password', async () => {
       const userDto: CreateUserDto = {
         name: 'Random',
         surname: 'User',
-        username: 'randomuser',
         email: 'randomuser@gmail.com',
+        password: 'Abcd1234@',
       };
 
       usersRepository.save.mockReturnValue(userDto);
@@ -66,8 +66,8 @@ describe('UsersService', () => {
           id: userId,
           name: 'Random',
           surname: 'User',
-          username: 'randomuser',
           email: 'randomuser@gmail.com',
+          password: '1234',
           role: Roles.CLIENT,
         };
 
@@ -106,7 +106,7 @@ describe('UsersService', () => {
           id: idUser,
           name: 'Random',
           surname: 'User',
-          username: 'randomuser',
+          password: '1234',
           email: 'randomuser@gmail.com',
           role: Roles.CLIENT,
         };

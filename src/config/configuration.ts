@@ -1,5 +1,3 @@
-import { User } from 'src/users/entities/user.entity';
-
 export interface DatabaseConfig {
   host: string;
   port: number;
@@ -15,7 +13,7 @@ export default () => ({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [User],
     synchronize: process.env.NODE_ENV === 'dev',
   },
+  jwtSecret: process.env.JWT_SECRET,
 });
