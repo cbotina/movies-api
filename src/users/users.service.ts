@@ -36,7 +36,7 @@ export class UsersService {
       throw new NotFoundException(`User #${id} not found`);
     }
 
-    return user;
+    return plainToInstance(User, user);
   }
 
   async findOneByEmail(email: string) {
@@ -68,6 +68,7 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
     }
+
     this.usersRepository.remove(user);
   }
 }

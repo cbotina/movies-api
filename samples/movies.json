@@ -1,0 +1,14 @@
+[
+  {
+    "title": "The Terrifier II",
+    "description": "El payaso Art resucita en la morgue. Un año después, en la noche de Halloween, el siniestro psicópata vuelve al condado de Miles para atacar a unos hermanos adolescentes cuyo difunto padre les legó un libro con bocetos premonitorios sobre Art.",
+    "posterLink": "https://pics.filmaffinity.com/Terrifier_2-139025282-large.jpg",
+    "stock": 5,
+    "trailerLink": "https://www.youtube.com/watch?v=UOrNESb8T4I",
+    "rentPrice": 5,
+    "salePrice": 20,
+    "likes": 75,
+    "availability": true,
+    "id": 1
+  }
+]
