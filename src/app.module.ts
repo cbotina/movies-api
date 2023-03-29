@@ -7,6 +7,7 @@ import configuration from './config/configuration';
 import { environments } from './config/environments';
 import { dbConfig } from './db/database.config';
 import { UsersModule } from './users/users.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './users/users.module';
       useFactory: dbConfig,
       inject: [ConfigService],
     }),
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
