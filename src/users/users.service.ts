@@ -18,11 +18,11 @@ export class UsersService {
     const { password } = createUserDto;
     const hashedPassword = await hash(password, 10);
 
-    const createdUser = await this.usersRepository.create(createUserDto);
-    createdUser.password = hashedPassword;
+    const user = this.usersRepository.create(createUserDto);
+    user.password = hashedPassword;
 
-    const result = this.usersRepository.save(createdUser);
-    return plainToInstance(User, result);
+    const createdUser = this.usersRepository.save(user);
+    return plainToInstance(User, createdUser);
   }
 
   findAll() {
@@ -63,6 +63,6 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    this.usersRepository.delete({ id });
+    return;
   }
 }

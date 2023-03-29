@@ -143,9 +143,22 @@ describe('UsersService', () => {
     describe('When user exists', () => {
       it('should return nothing', async () => {
         const userId = 1;
-        usersRepository.delete.mockReturnValue(undefined);
+        usersRepository.remove.mockReturnValue(undefined);
         const result = await service.remove(userId);
         expect(result).toBe(undefined);
+      });
+    });
+    describe('Otherwise', () => {
+      it('should throw "NotFoundException"', async () => {
+        const userId = 99;
+        usersRepository.preload.mockReturnValue(null);
+        usersRepository.remove.mockReturnValue(undefined);
+        try {
+          await service.remove(userId);
+        } catch (error) {
+          expect(error).toBeInstanceOf(NotFoundException);
+          expect(error.message).toEqual(`User #${userId} not found`);
+        }
       });
     });
   });
