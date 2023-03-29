@@ -24,6 +24,9 @@ export class User {
   @Column()
   password?: string;
 
+  @Column()
+  balance: number;
+
   @Column({
     type: 'enum',
     enum: Roles,
