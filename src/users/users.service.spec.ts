@@ -46,10 +46,19 @@ describe('UsersService', () => {
         password: 'Abcd1234@',
       };
 
-      usersRepository.save.mockReturnValue(userDto);
+      usersRepository.create.mockReturnValue(userDto);
+
+      const createdUser: User = {
+        id: 1,
+        name: 'Random',
+        surname: 'User',
+        email: 'randomuser@gmail.com',
+        role: Roles.CLIENT,
+      };
+      usersRepository.save.mockReturnValue(createdUser);
       const created = await service.create(userDto);
 
-      expect(created).toEqual(userDto);
+      expect(created).toEqual(createdUser);
     });
   });
 
@@ -143,6 +152,7 @@ describe('UsersService', () => {
     describe('When user exists', () => {
       it('should return nothing', async () => {
         const userId = 1;
+        usersRepository.findOneBy.mockReturnValue({});
         usersRepository.remove.mockReturnValue(undefined);
         const result = await service.remove(userId);
         expect(result).toBe(undefined);
@@ -151,7 +161,7 @@ describe('UsersService', () => {
     describe('Otherwise', () => {
       it('should throw "NotFoundException"', async () => {
         const userId = 99;
-        usersRepository.preload.mockReturnValue(null);
+        usersRepository.findOneBy.mockReturnValue(undefined);
         usersRepository.remove.mockReturnValue(undefined);
         try {
           await service.remove(userId);

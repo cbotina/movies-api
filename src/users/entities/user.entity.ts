@@ -22,7 +22,7 @@ export class User {
 
   @Exclude()
   @Column()
-  password: string;
+  password?: string;
 
   @Column({
     type: 'enum',

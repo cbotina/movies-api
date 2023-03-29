@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
-import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class MoviesService {
@@ -39,11 +38,12 @@ export class MoviesService {
   }
 
   async remove(id: number) {
-    const exists = await this.moviesRepository.findOneBy({ id });
+    const movie = await this.moviesRepository.findOneBy({ id });
 
-    if (!exists) {
+    if (!movie) {
       throw new NotFoundException(`Movie #${id} not found`);
     }
-    return;
+
+    this.moviesRepository.remove(movie);
   }
 }

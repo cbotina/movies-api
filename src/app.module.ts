@@ -8,9 +8,7 @@ import { environments } from './config/environments';
 import { dbConfig } from './config/db/database.config';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
-import { RentingModule } from './renting/renting.module';
 import { BuyingModule } from './buying/buying.module';
-import { ReturningModule } from './returning/returning.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -26,9 +24,7 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
     }),
     MoviesModule,
-    RentingModule,
     BuyingModule,
-    ReturningModule,
     AuthModule,
   ],
   controllers: [AppController],
