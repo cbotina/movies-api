@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Sale } from 'src/sales/entities/sale.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Movie {
@@ -31,4 +32,7 @@ export class Movie {
 
   @Column()
   availability: boolean;
+
+  @OneToMany(() => Sale, (sale) => sale.movie)
+  sales: Sale[];
 }

@@ -9,6 +9,7 @@ import { dbConfig } from './config/db/database.config';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
+import { SalesModule } from './sales/sales.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     MoviesModule,
     AuthModule,
+    SalesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
