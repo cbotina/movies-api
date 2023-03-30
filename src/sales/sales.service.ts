@@ -8,8 +8,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MoviesService } from 'src/movies/movies.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
-import { CreateSaleDto } from './dto/create-sale.dto';
-import { UpdateSaleDto } from './dto/update-sale.dto';
 import { Sale } from './entities/sale.entity';
 
 @Injectable()
@@ -59,23 +57,27 @@ export class SalesService {
     return createdSale;
   }
 
-  create(createSaleDto: CreateSaleDto) {
-    return 'This action adds a new sale';
-  }
-
   findAll() {
-    return `This action returns all sales`;
+    return this.salesRepository.find({
+      relations: {
+        movie: true,
+        user: true,
+      },
+      select: {
+        movie: {
+          title: true,
+        },
+        user: {
+          email: true,
+        },
+      },
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} sale`;
-  }
-
-  update(id: number, updateSaleDto: UpdateSaleDto) {
-    return `This action updates a #${id} sale`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sale`;
+    return this.salesRepository.findOne({
+      relations: { movie: true, user: true },
+      where: { id },
+    });
   }
 }
