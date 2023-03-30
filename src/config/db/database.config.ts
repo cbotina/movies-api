@@ -1,5 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Movie } from 'src/movies/entities/movie.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
+import { User } from 'src/users/entities/user.entity';
 
 export const dbConfig = (
   configService: ConfigService,
