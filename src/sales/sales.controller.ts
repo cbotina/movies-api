@@ -8,8 +8,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
-import { CreateSaleBodyDto } from './dto/create-sale-body.dto';
+import { CreateSaleBodyDto } from './dto/buy-movie-body';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
+import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 
 @Controller('buy')
 export class SalesController {
@@ -19,7 +20,7 @@ export class SalesController {
   @Post(':movieId')
   buy(
     @Param('movieId') movieId: number,
-    @Request() req: any,
+    @Request() req: RequestWithUser,
     @Body() body: CreateSaleBodyDto,
   ) {
     return this.salesService.buyMovie(movieId, req.user.id, body.quantity);

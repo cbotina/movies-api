@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer/';
 import { Sale } from 'src/sales/entities/sale.entity';
+import { Rental } from 'src/rentals/entities/rental.entity';
 
 export enum Roles {
   ADMIN = 'admin',
@@ -30,6 +31,9 @@ export class User {
 
   @OneToMany(() => Sale, (sale) => sale.user)
   sales: Sale[];
+
+  @OneToMany(() => Rental, (rental) => rental.user)
+  rentals: Rental[];
 
   @Column({
     type: 'enum',

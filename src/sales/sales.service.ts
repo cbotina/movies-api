@@ -9,6 +9,7 @@ import { MoviesService } from 'src/movies/movies.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
+import { CreateSaleDto } from './dto/create-sale.dto';
 
 @Injectable()
 export class SalesService {
@@ -22,6 +23,7 @@ export class SalesService {
   async buyMovie(movieId: number, userId: number, quantity: number) {
     const movie = await this.moviesService.findOne(movieId);
     const user = await this.usersService.findOne(userId);
+
     const totalPrice = movie.salePrice * quantity;
 
     if (movie.stock === 0) {
@@ -36,41 +38,26 @@ export class SalesService {
       throw new BadRequestException(`Insufficient balance for purchase`);
     }
 
-    const purchase = this.salesRepository.create({
+    movie.stock -= quantity;
+    await this.moviesService.update(movieId, { ...movie });
+    user.balance -= totalPrice;
+    await this.usersService.update(userId, { ...user });
+
+    const sale: CreateSaleDto = this.salesRepository.create({
       user,
       movie,
       quantity,
-      datePurchased: '2023-03-30',
+      datePurchased: new Date(),
     });
 
-    console.log(purchase);
-
-    const sale = this.salesRepository.create(purchase);
     const createdSale = await this.salesRepository.save(sale);
-    await this.moviesService.update(movieId, {
-      stock: (movie.stock -= quantity),
-    });
-    await this.usersService.update(userId, {
-      balance: user.balance - totalPrice,
-    });
 
     return createdSale;
   }
 
   findAll() {
     return this.salesRepository.find({
-      relations: {
-        movie: true,
-        user: true,
-      },
-      select: {
-        movie: {
-          title: true,
-        },
-        user: {
-          email: true,
-        },
-      },
+      loadRelationIds: true,
     });
   }
 

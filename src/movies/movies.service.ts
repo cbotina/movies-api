@@ -5,12 +5,16 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { plainToInstance } from 'class-transformer';
+import { Tag } from './entities/tag.entity';
+import { CreateTagDto } from './dto/create-tag.dto';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectRepository(Movie)
     private moviesRepository: Repository<Movie>,
+    @InjectRepository(Tag)
+    private tagsService: Repository<Tag>,
   ) {}
 
   async create(createMovieDto: CreateMovieDto) {
@@ -23,7 +27,10 @@ export class MoviesService {
   }
 
   async findOne(id: number) {
-    const movie = await this.moviesRepository.findOneBy({ id });
+    const movie = await this.moviesRepository.findOne({
+      where: { id },
+      relations: { tags: true },
+    });
     if (!movie) {
       throw new NotFoundException(`Movie #${id} not found`);
     }
@@ -50,5 +57,34 @@ export class MoviesService {
     }
 
     this.moviesRepository.remove(movie);
+  }
+
+  async addTagToMovie(movieId: number, createTagDto: CreateTagDto) {
+    const movie = await this.moviesRepository.findOne({
+      where: { id: movieId },
+      relations: { tags: true },
+    });
+
+    let tag: Tag = await this.tagsService.findOneBy(createTagDto);
+
+    if (!tag) {
+      tag = await this.tagsService.save(createTagDto);
+    }
+
+    movie.tags.push(tag);
+    const updatedMovie = await this.moviesRepository.save(movie);
+    return updatedMovie;
+  }
+
+  async removeTagFromMovie(movieId: number, tagId: number) {
+    const movie = await this.moviesRepository.findOne({
+      where: { id: movieId },
+      relations: { tags: true },
+    });
+
+    movie.tags = movie.tags.filter((tag) => tag.id !== tagId);
+
+    const updatedMovie = await this.moviesRepository.save(movie);
+    return updatedMovie;
   }
 }

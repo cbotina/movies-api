@@ -1,5 +1,14 @@
+import { Rental } from 'src/rentals/entities/rental.entity';
 import { Sale } from 'src/sales/entities/sale.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { Tag } from './tag.entity';
 
 @Entity()
 export class Movie {
@@ -35,4 +44,11 @@ export class Movie {
 
   @OneToMany(() => Sale, (sale) => sale.movie)
   sales: Sale[];
+
+  @OneToMany(() => Rental, (rental) => rental.movie)
+  rentals: Rental[];
+
+  @ManyToMany(() => Tag)
+  @JoinTable()
+  tags: Tag[];
 }

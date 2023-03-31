@@ -9,11 +9,7 @@ import { User } from 'src/users/entities/user.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
 
 @Module({
-  imports: [
-    UsersModule,
-    MoviesModule,
-    TypeOrmModule.forFeature([Sale, User, Movie]),
-  ],
+  imports: [UsersModule, MoviesModule, TypeOrmModule.forFeature([Sale])],
   controllers: [SalesController],
   providers: [SalesService],
 })

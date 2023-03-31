@@ -11,6 +11,7 @@ import {
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { CreateTagDto } from './dto/create-tag.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -19,6 +20,14 @@ export class MoviesController {
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
     return this.moviesService.create(createMovieDto);
+  }
+
+  @Post(':movieId/tags')
+  addTagToMovie(
+    @Param('movieId', ParseIntPipe) movieId: number,
+    @Body() createTagDto: CreateTagDto,
+  ) {
+    return this.moviesService.addTagToMovie(movieId, createTagDto);
   }
 
   @Get()
@@ -42,5 +51,13 @@ export class MoviesController {
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.remove(id);
+  }
+
+  @Delete(':movieId/tags/:tagId')
+  removeTagFromMovie(
+    @Param('movieId', ParseIntPipe) movieId: number,
+    @Param('tagId', ParseIntPipe) tagId: number,
+  ) {
+    return this.moviesService.removeTagFromMovie(movieId, tagId);
   }
 }

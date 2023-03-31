@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
 import { SalesModule } from './sales/sales.module';
+import { RentalsModule } from './rentals/rentals.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SalesModule } from './sales/sales.module';
     MoviesModule,
     AuthModule,
     SalesModule,
+    RentalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

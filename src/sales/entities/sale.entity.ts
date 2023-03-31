@@ -5,9 +5,9 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Sale {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
-  @ManyToOne(() => User, (user) => user.sales)
+  @ManyToOne(() => User, (user) => user.sales, { onDelete: 'CASCADE' })
   user: User;
 
   @ManyToOne(() => Movie, (movie) => movie.sales)
