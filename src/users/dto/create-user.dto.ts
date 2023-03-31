@@ -41,5 +41,5 @@ export class CreateUserDto {
 
   @IsNumber()
   @IsOptional()
-  balance: number;
+  balance?: number;
 }

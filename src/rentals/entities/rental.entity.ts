@@ -1,5 +1,5 @@
-import { Movie } from 'src/movies/entities/movie.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Movie } from '../../../src/movies/entities/movie.entity';
+import { User } from '../../../src/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum RentalStatus {

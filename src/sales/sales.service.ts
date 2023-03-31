@@ -5,8 +5,8 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MoviesService } from 'src/movies/movies.service';
-import { UsersService } from 'src/users/users.service';
+import { MoviesService } from '../../src/movies/movies.service';
+import { UsersService } from '../../src/users/users.service';
 import { Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
 import { CreateSaleDto } from './dto/create-sale.dto';

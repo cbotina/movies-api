@@ -14,7 +14,7 @@ export class MoviesService {
     @InjectRepository(Movie)
     private moviesRepository: Repository<Movie>,
     @InjectRepository(Tag)
-    private tagsService: Repository<Tag>,
+    private tagsRepository: Repository<Tag>,
   ) {}
 
   async create(createMovieDto: CreateMovieDto) {
@@ -65,10 +65,10 @@ export class MoviesService {
       relations: { tags: true },
     });
 
-    let tag: Tag = await this.tagsService.findOneBy(createTagDto);
+    let tag: Tag = await this.tagsRepository.findOneBy(createTagDto);
 
     if (!tag) {
-      tag = await this.tagsService.save(createTagDto);
+      tag = await this.tagsRepository.save(createTagDto);
     }
 
     movie.tags.push(tag);

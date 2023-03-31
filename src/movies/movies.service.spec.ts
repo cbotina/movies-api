@@ -6,6 +6,7 @@ import {
 } from '../../test/helpers/mock-repository';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Movie } from './entities/movie.entity';
+import { Tag } from './entities/tag.entity';
 
 describe('MoviesService', () => {
   let service: MoviesService;
@@ -17,6 +18,10 @@ describe('MoviesService', () => {
         MoviesService,
         {
           provide: getRepositoryToken(Movie),
+          useValue: createMockRepository(),
+        },
+        {
+          provide: getRepositoryToken(Tag),
           useValue: createMockRepository(),
         },
       ],
