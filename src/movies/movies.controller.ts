@@ -15,7 +15,6 @@ import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { Role } from 'src/common/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Public } from 'src/common/decorators/public.decorator';
 
