@@ -24,6 +24,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     } catch (error) {
       throw new HttpException('User in JWT payload not found', 404);
     }
-    return { id: payload.id, username: payload.username };
+    return { id: payload.id, role: payload.role };
   }
 }

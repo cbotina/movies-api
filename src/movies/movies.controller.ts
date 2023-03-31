@@ -7,13 +7,16 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateTagDto } from './dto/create-tag.dto';
-import { Roles } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/decorators/roles.decorator';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
+import { Roles } from 'src/users/entities/user.entity';
 
 @Controller('movies')
 export class MoviesController {
@@ -33,6 +36,7 @@ export class MoviesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.ADMIN)
   findAll() {
     return this.moviesService.findAll();
