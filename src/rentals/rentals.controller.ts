@@ -13,7 +13,6 @@ import {
 import { RentalsService } from './rentals.service';
 import { RentMovieDto } from './dto/rent-movie-body.dto';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
 import { ReturnMovieDto } from './dto/return-movie.dto';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';

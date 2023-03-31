@@ -1,7 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles, User } from './entities/user.entity';
@@ -75,7 +74,6 @@ describe('UsersService', () => {
           name: 'Random',
           surname: 'User',
           email: 'randomuser@gmail.com',
-          password: '1234',
           balance: 0,
           rentals: [],
           sales: [],
