@@ -23,7 +23,7 @@ export class MoviesService {
   }
 
   findAll() {
-    return this.moviesRepository.find();
+    return this.moviesRepository.find({ order: { title: 'ASC' } });
   }
 
   async findOne(id: number) {

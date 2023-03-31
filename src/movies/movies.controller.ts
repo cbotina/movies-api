@@ -13,10 +13,10 @@ import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateTagDto } from './dto/create-tag.dto';
-import { Role } from '../../src/common/decorators/roles.decorator';
-import { RolesGuard } from '../../src/common/guards/roles.guard';
-import { Roles } from '../../src/users/entities/user.entity';
-import { Public } from '../../src/common/decorators/public.decorator';
+import { Role } from 'src/common/decorators/roles.decorator';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/users/entities/user.entity';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @UseGuards(RolesGuard)
 @Controller('movies')
