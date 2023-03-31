@@ -6,18 +6,25 @@ import {
   Param,
   Request,
   UseGuards,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { CreateSaleBodyDto } from './dto/buy-movie-body';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/users/entities/user.entity';
+import { Role } from 'src/common/decorators/roles.decorator';
 
-@Controller('buy')
+@UseGuards(RolesGuard)
+@UseInterceptors(ClassSerializerInterceptor)
+@Controller()
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Post(':movieId')
+  @Role(Roles.CLIENT)
+  @Post('buy/:movieId')
   buy(
     @Param('movieId') movieId: number,
     @Request() req: RequestWithUser,
@@ -26,12 +33,13 @@ export class SalesController {
     return this.salesService.buyMovie(movieId, req.user.id, body.quantity);
   }
 
-  @Get()
+  @Role(Roles.ADMIN)
+  @Get('sales')
   findAll() {
     return this.salesService.findAll();
   }
-
-  @Get(':id')
+  @Role(Roles.ADMIN)
+  @Get('sales/:id')
   findOne(@Param('id') id: number) {
     return this.salesService.findOne(+id);
   }

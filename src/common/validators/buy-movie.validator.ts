@@ -10,7 +10,7 @@ export class BuyMovieValidator extends EntityValidator {
   constructor(
     @InjectRepository(Movie)
     moviesRepository: Repository<Movie>,
-    @InjectRepository(Movie)
+    @InjectRepository(User)
     usersRepository: Repository<User>,
   ) {
     super(moviesRepository, usersRepository);
