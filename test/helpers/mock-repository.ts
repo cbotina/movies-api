@@ -10,4 +10,6 @@ export const createMockRepository = <T = any>(): MockRepository<T> => ({
   remove: jest.fn(),
   preload: jest.fn(),
   create: jest.fn(),
+  find: jest.fn(),
+  findOne: jest.fn(),
 });

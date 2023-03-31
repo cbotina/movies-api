@@ -40,4 +40,26 @@ describe('RentalsController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  describe('Get all rentals', () => {
+    it('should be defined', () => {
+      expect(controller.findAll).toBeDefined();
+    });
+  });
+
+  describe('Get one rental', () => {
+    it('should be defined', () => {
+      expect(controller.findOne).toBeDefined();
+    });
+  });
+  describe('Rent Movie', () => {
+    it('should be defined', () => {
+      expect(controller.rentMovie).toBeDefined();
+    });
+  });
+  describe('Return movie', () => {
+    it('should be defined', () => {
+      expect(controller.returnMovie).toBeDefined();
+    });
+  });
 });
