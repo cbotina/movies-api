@@ -5,8 +5,8 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MoviesService } from '../../src/movies/movies.service';
-import { UsersService } from '../../src/users/users.service';
+import { MoviesService } from 'src/movies/movies.service';
+import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
 import { CreateSaleDto } from './dto/create-sale.dto';
@@ -21,11 +21,11 @@ export class SalesService {
   ) {}
 
   async buyMovie(movieId: number, userId: number, quantity: number) {
+    // ? Validation
+
+    // check movie
     const movie = await this.moviesService.findOne(movieId);
-    const user = await this.usersService.findOne(userId);
-
-    const totalPrice = movie.salePrice * quantity;
-
+    // validate movie
     if (movie.stock === 0) {
       throw new ConflictException(`Movie out of stock`);
     }
@@ -34,10 +34,16 @@ export class SalesService {
       throw new ServiceUnavailableException(`Movie not available`);
     }
 
+    // check user
+    const user = await this.usersService.findOne(userId);
+
+    // validate user
+    const totalPrice = movie.salePrice * quantity;
     if (user.balance < totalPrice) {
       throw new BadRequestException(`Insufficient balance for purchase`);
     }
 
+    // ? Transaction
     movie.stock -= quantity;
     await this.moviesService.update(movieId, { ...movie });
     user.balance -= totalPrice;

@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer/';
-import { Sale } from '../../../src/sales/entities/sale.entity';
-import { Rental } from '../../../src/rentals/entities/rental.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
+import { Rental } from 'src/rentals/entities/rental.entity';
 
 export enum Roles {
   ADMIN = 'admin',

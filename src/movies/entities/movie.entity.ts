@@ -1,5 +1,5 @@
-import { Rental } from '../../../src/rentals/entities/rental.entity';
-import { Sale } from '../../../src/sales/entities/sale.entity';
+import { Rental } from 'src/rentals/entities/rental.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
 import {
   Entity,
   Column,

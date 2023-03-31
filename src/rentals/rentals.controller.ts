@@ -13,8 +13,8 @@ import { RentalsService } from './rentals.service';
 import { CreateRentalDto } from './dto/create-rental.dto';
 import { UpdateRentalDto } from './dto/update-rental.dto';
 import { RentMovieDto } from './dto/rent-movie-body.dto';
-import { RequestWithUser } from '../../src/common/interfaces/request-with-user';
-import { JwtAuthGuard } from '../../src/auth/guards/jwt.auth.guard';
+import { RequestWithUser } from 'src/common/interfaces/request-with-user';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
 import { ReturnMovieDto } from './dto/return-movie.dto';
 
 @Controller('rentals')

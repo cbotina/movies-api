@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { CreateSaleBodyDto } from './dto/buy-movie-body';
-import { JwtAuthGuard } from '../../src/auth/guards/jwt.auth.guard';
-import { RequestWithUser } from '../../src/common/interfaces/request-with-user';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
+import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 
 @Controller('buy')
 export class SalesController {

@@ -11,6 +11,7 @@ import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
 import { SalesModule } from './sales/sales.module';
 import { RentalsModule } from './rentals/rentals.module';
+import { ValidatorsModule } from './common/validators/validators.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RentalsModule } from './rentals/rentals.module';
     AuthModule,
     SalesModule,
     RentalsModule,
+    ValidatorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
