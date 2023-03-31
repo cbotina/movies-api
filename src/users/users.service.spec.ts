@@ -44,6 +44,7 @@ describe('UsersService', () => {
         surname: 'User',
         email: 'randomuser@gmail.com',
         password: 'Abcd1234@',
+        balance: 0,
       };
 
       usersRepository.create.mockReturnValue(userDto);
@@ -54,6 +55,9 @@ describe('UsersService', () => {
         surname: 'User',
         email: 'randomuser@gmail.com',
         role: Roles.CLIENT,
+        balance: 0,
+        rentals: [],
+        sales: [],
       };
       usersRepository.save.mockReturnValue(createdUser);
       const created = await service.create(userDto);
@@ -72,6 +76,9 @@ describe('UsersService', () => {
           surname: 'User',
           email: 'randomuser@gmail.com',
           password: '1234',
+          balance: 0,
+          rentals: [],
+          sales: [],
           role: Roles.CLIENT,
         };
 
@@ -112,6 +119,9 @@ describe('UsersService', () => {
           surname: 'User',
           password: '1234',
           email: 'randomuser@gmail.com',
+          balance: 0,
+          rentals: [],
+          sales: [],
           role: Roles.CLIENT,
         };
 

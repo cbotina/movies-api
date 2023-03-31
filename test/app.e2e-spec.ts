@@ -2,12 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { UsersModule } from './../src/users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { dbConfig } from '../src/config/db/database.config';
-import { environments } from './../src/config/environments';
-import configuration from './../src/config/configuration';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { CreateRentalDto } from './dto/create-rental.dto';
 import { UpdateRentalDto } from './dto/update-rental.dto';
-import { MoviesService } from 'src/movies/movies.service';
-import { UsersService } from 'src/users/users.service';
+import { MoviesService } from '../../src/movies/movies.service';
+import { UsersService } from '../../src/users/users.service';
 import { Rental } from './entities/rental.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

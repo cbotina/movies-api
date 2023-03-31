@@ -1,14 +1,112 @@
 [
   {
-    "title": "The Terrifier II",
-    "description": "El payaso Art resucita en la morgue. Un año después, en la noche de Halloween, el siniestro psicópata vuelve al condado de Miles para atacar a unos hermanos adolescentes cuyo difunto padre les legó un libro con bocetos premonitorios sobre Art.",
-    "posterLink": "https://pics.filmaffinity.com/Terrifier_2-139025282-large.jpg",
-    "stock": 5,
-    "trailerLink": "https://www.youtube.com/watch?v=UOrNESb8T4I",
+    "title": "The Terminator",
+    "description": "A cyborg assassin is sent back in time to kill Sarah Connor, the woman whose unborn son will become humanity's only hope in a future war against machines.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/7/70/Terminator1984movieposter.jpg",
+    "stock": 10,
+    "trailerLink": "https://www.youtube.com/watch?v=frdj1zb9sMY",
     "rentPrice": 5,
     "salePrice": 20,
-    "likes": 75,
-    "availability": true,
-    "id": 1
+    "likes": 100,
+    "availability": true
+  },
+  {
+    "title": "The Shining",
+    "description": "A family heads to an isolated hotel for the winter where a sinister presence influences the father into violence, while his psychic son sees horrific forebodings from both past and future.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/4/4d/The_Shining_%281980%29_UK_theatrical_poster.jpg",
+    "stock": 7,
+    "trailerLink": "https://www.youtube.com/watch?v=S014oGZiSdI",
+    "rentPrice": 4,
+    "salePrice": 15,
+    "likes": 90,
+    "availability": true
+  },
+  {
+    "title": "Die Hard",
+    "description": "An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/7/7e/Die_hard.jpg",
+    "stock": 12,
+    "trailerLink": "https://www.youtube.com/watch?v=2TQ-pOvI6Xo",
+    "rentPrice": 6,
+    "salePrice": 25,
+    "likes": 80,
+    "availability": true
+  },
+  {
+    "title": "The Exorcist",
+    "description": "When a teenage girl is possessed by a mysterious entity, her mother seeks the help of two priests to save her daughter.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/5/5a/Exorcist-poster-d.jpg",
+    "stock": 6,
+    "trailerLink": "https://www.youtube.com/watch?v=YDGw1MTEe9k",
+    "rentPrice": 3,
+    "salePrice": 12,
+    "likes": 70,
+    "availability": true
+  },
+  {
+    "title": "Predator",
+    "description": "A team of commandos on a mission in a Central American jungle find themselves hunted by an extraterrestrial warrior.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/9/95/Predator_Movie.jpg",
+    "stock": 9,
+    "trailerLink": "https://www.youtube.com/watch?v=Y1txEAywdiw",
+    "rentPrice": 5,
+    "salePrice": 18,
+    "likes": 85,
+    "availability": true
+  },
+  {
+    "title": "The Nightingale",
+    "description": "In 1825, Clare, a young Irish convict, chases a British officer through the rugged Tasmanian wilderness, bent on revenge for a terrible act of violence he committed against her family. On the way she enlists the services of an Aboriginal tracker named Billy, who is also marked by trauma from his own violence-filled past.",
+    "posterLink": "https://pics.filmaffinity.com/the_nightingale-365512699-large.jpg",
+    "stock": 3,
+    "trailerLink": "https://www.youtube.com/watch?v=7Nf2CispZf0",
+    "rentPrice": 6,
+    "salePrice": 25,
+    "likes": 63,
+    "availability": true
+  },
+  {
+    "title": "Dune",
+    "description": "Feature adaptation of Frank Herbert's science fiction novel, about the son of a noble family entrusted with the protection of the most valuable asset and most vital element in the galaxy.",
+    "posterLink": "https://pics.filmaffinity.com/dune-296883364-large.jpg",
+    "stock": 2,
+    "trailerLink": "https://www.youtube.com/watch?v=8g18jFHCLXk",
+    "rentPrice": 8,
+    "salePrice": 30,
+    "likes": 92,
+    "availability": true
+  },
+  {
+    "title": "No Time to Die",
+    "description": "James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.",
+    "posterLink": "https://pics.filmaffinity.com/no_time_to_die-482588847-large.jpg",
+    "stock": 4,
+    "trailerLink": "https://www.youtube.com/watch?v=L3kYuLj5UTA",
+    "rentPrice": 10,
+    "salePrice": 35,
+    "likes": 85,
+    "availability": true
+  },
+  {
+    "title": "The French Dispatch",
+    "description": "A love letter to journalists set in an outpost of an American newspaper in a fictional 20th-century French city that brings to life a collection of stories published in The French Dispatch magazine.",
+    "posterLink": "https://pics.filmaffinity.com/the_french_dispatch-995476288-large.jpg",
+    "stock": 1,
+    "trailerLink": "https://www.youtube.com/watch?v=TcPk2p0Zaw4",
+    "rentPrice": 7,
+    "salePrice": 28,
+    "likes": 51,
+    "availability": true
+  },
+  {
+    "title": "Cruella",
+    "description": "A live-action prequel feature film following a young Cruella de Vil.",
+    "posterLink": "https://pics.filmaffinity.com/Cruella-696692897-large.jpg",
+    "stock": 6,
+    "trailerLink": "https://www.youtube.com/watch?v=jpZrVxv_8hc",
+    "rentPrice": 9,
+    "salePrice": 32,
+    "likes": 77,
+    "availability": true
   }
 ]
