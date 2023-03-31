@@ -26,8 +26,8 @@ export class User {
   @Column()
   password?: string;
 
-  @Column()
-  balance: number;
+  @Column({ default: 0 })
+  balance?: number;
 
   @OneToMany(() => Sale, (sale) => sale.user)
   sales: Sale[];

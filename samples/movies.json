@@ -8,7 +8,6 @@
     "rentPrice": 5,
     "salePrice": 20,
     "likes": 75,
-    "availability": true,
-    "id": 1
+    "availability": true
   }
 ]

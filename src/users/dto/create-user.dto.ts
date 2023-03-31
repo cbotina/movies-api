@@ -6,6 +6,8 @@ import {
   IsStrongPasswordOptions,
   IsStrongPassword,
   IsNumber,
+  IsEmpty,
+  IsOptional,
 } from 'class-validator';
 
 const passwordOptions: IsStrongPasswordOptions = {
@@ -37,7 +39,7 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
   @IsNumber()
+  @IsOptional()
   balance: number;
 }
