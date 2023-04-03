@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
 import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
+import { BuyMoviesDto, Purchase } from './dto/buy-movies.dto';
 
 @Injectable()
 export class SalesService {
@@ -13,7 +14,11 @@ export class SalesService {
     private salesRepository: Repository<Sale>,
   ) {}
 
-  async buyMovie(movieId: number, userId: number, quantity: number) {
+  async buyMovies(purchases: Purchase[], userId: number) {
+    return 1;
+  }
+
+  async buyMovieTransaction(movieId: number, userId: number, quantity: number) {
     const { validatedEntities, errors } = await this.buyMovieValidator.validate(
       movieId,
       userId,

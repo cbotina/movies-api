@@ -53,7 +53,7 @@ describe('SalesService', () => {
 
   describe('Register sale', () => {
     it('should be defined', async () => {
-      expect(service.buyMovie).toBeDefined();
+      expect(service.buyMovieTransaction).toBeDefined();
     });
   });
 

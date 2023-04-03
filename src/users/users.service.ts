@@ -1,11 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { hash } from 'bcrypt';
+import { compareSync, hash } from 'bcrypt';
 import { plainToInstance } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { Roles, User } from './entities/user.entity';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +18,21 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
+
+  async changePassword(changePasswordDto: ChangePasswordDto, userId: number) {
+    const user = await this.usersRepository.findOneByOrFail({ id: userId });
+    const { oldPassword, newPassword } = changePasswordDto;
+
+    const checkPassword = compareSync(oldPassword, user.password);
+    if (!checkPassword) {
+      throw new UnauthorizedException('Wrong Password');
+    }
+    const hashedPassword = await hash(newPassword, 10);
+    user.password = hashedPassword;
+
+    this.usersRepository.save(user);
+    return { message: 'Password changed successfully' };
+  }
 
   async create(createUserDto: CreateUserDto) {
     const { password } = createUserDto;
@@ -49,7 +69,10 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto, authUser: User) {
+    if (updateUserDto.role && authUser.role !== Roles.ADMIN) {
+      throw new UnauthorizedException(`Only admins can set user roles`);
+    }
     const user = await this.usersRepository.preload({
       id,
       ...updateUserDto,

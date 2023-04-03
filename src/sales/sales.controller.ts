@@ -29,7 +29,11 @@ export class SalesController {
     @Request() req: RequestWithUser,
     @Body() body: CreateSaleBodyDto,
   ) {
-    return this.salesService.buyMovie(movieId, req.user.id, body.quantity);
+    return this.salesService.buyMovieTransaction(
+      movieId,
+      req.user.id,
+      body.quantity,
+    );
   }
 
   @Role(Roles.ADMIN)

@@ -10,7 +10,7 @@ import {
   IsOptional,
 } from 'class-validator';
 
-const passwordOptions: IsStrongPasswordOptions = {
+export const passwordOptions: IsStrongPasswordOptions = {
   minLength: 8,
   minUppercase: 1,
   minNumbers: 1,

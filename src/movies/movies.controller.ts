@@ -8,6 +8,8 @@ import {
   Delete,
   ParseIntPipe,
   UseGuards,
+  Query,
+  ParseArrayPipe,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -17,11 +19,19 @@ import { Role } from 'src/common/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Public } from 'src/common/decorators/public.decorator';
+import { QueryFilterDto } from './dto/query-filters.dto';
 
 @UseGuards(RolesGuard)
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(private readonly moviesService: MoviesService) {
+    this.parseArrayPipe = new ParseArrayPipe({
+      items: String,
+      separator: ',',
+      optional: true,
+    });
+  }
+  parseArrayPipe: ParseArrayPipe;
 
   @Post()
   @Role(Roles.ADMIN)
@@ -40,8 +50,11 @@ export class MoviesController {
 
   @Get()
   @Public()
-  findAll() {
-    return this.moviesService.findAll();
+  findAll(
+    @Query()
+    queryFilterDto: QueryFilterDto,
+  ) {
+    return this.moviesService.findAll(queryFilterDto);
   }
 
   @Get(':id')

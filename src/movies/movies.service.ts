@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -7,6 +11,12 @@ import { Movie } from './entities/movie.entity';
 import { plainToInstance } from 'class-transformer';
 import { Tag } from './entities/tag.entity';
 import { CreateTagDto } from './dto/create-tag.dto';
+import {
+  getOrderObject,
+  getWhereQueryObject,
+  validateSortOptions,
+} from './utils/utils';
+import { QueryFilterDto } from './dto/query-filters.dto';
 
 @Injectable()
 export class MoviesService {
@@ -22,8 +32,23 @@ export class MoviesService {
     return this.moviesRepository.save(newMovie);
   }
 
-  findAll() {
-    return this.moviesRepository.find({ order: { title: 'ASC' } });
+  findAll(queryFilterDto: QueryFilterDto) {
+    console.log(queryFilterDto);
+    const sortOptions = queryFilterDto.sort ?? ['title'];
+
+    const { errors, validOptions } = validateSortOptions(sortOptions);
+
+    if (errors.length > 0) {
+      throw new BadRequestException(errors[0]);
+    }
+
+    const orderObject = getOrderObject(validOptions);
+    const whereObject = getWhereQueryObject(queryFilterDto);
+
+    return this.moviesRepository.find({
+      order: orderObject,
+      where: whereObject,
+    });
   }
 
   async findOne(id: number) {
