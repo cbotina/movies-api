@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { CreateSaleBodyDto } from './dto/buy-movie-body';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.auth.guard';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
