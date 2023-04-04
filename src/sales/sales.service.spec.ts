@@ -5,7 +5,7 @@ import { Sale } from './entities/sale.entity';
 import {
   MockRepository,
   createMockRepository,
-} from '../../test/helpers/mock-repository';
+} from '../test/helpers/mock-repository';
 import { MoviesService } from '../../src/movies/movies.service';
 import { UsersService } from '../../src/users/users.service';
 import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';

@@ -7,7 +7,7 @@ import { Rental, RentalStatus } from './entities/rental.entity';
 import {
   MockRepository,
   createMockRepository,
-} from '../../test/helpers/mock-repository';
+} from '../test/helpers/mock-repository';
 import { RentMovieValidator } from 'src/common/validators/rent-movie.validator';
 import { DataSource } from 'typeorm';
 import { Movie } from 'src/movies/entities/movie.entity';

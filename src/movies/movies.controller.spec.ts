@@ -3,7 +3,7 @@ import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Movie } from './entities/movie.entity';
-import { createMockRepository } from '../../test/helpers/mock-repository';
+import { createMockRepository } from '../test/helpers/mock-repository';
 import { Tag } from './entities/tag.entity';
 
 describe('MoviesController', () => {

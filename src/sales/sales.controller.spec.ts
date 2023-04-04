@@ -5,7 +5,7 @@ import { MoviesService } from '../../src/movies/movies.service';
 import { UsersService } from '../../src/users/users.service';
 import { Sale } from './entities/sale.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createMockRepository } from '../../test/helpers/mock-repository';
+import { createMockRepository } from '../test/helpers/mock-repository';
 import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
 import { DataSource } from 'typeorm';
 

@@ -9,11 +9,6 @@ import { environments } from './config/environments';
 import configuration from './config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dbConfig } from './config/db/database.config';
-import { Movie } from './movies/entities/movie.entity';
-import { Sale } from './sales/entities/sale.entity';
-import { Tag } from './movies/entities/tag.entity';
-import { User } from './users/entities/user.entity';
-import { Rental } from './rentals/entities/rental.entity';
 
 describe('Sales Controller (e2e)', () => {
   let app: INestApplication;
@@ -37,9 +32,10 @@ describe('Sales Controller (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
   });
-
-  it('/movies (GET)', () => {
-    return request(app.getHttpServer()).get('/movies').expect(200);
+  describe('it should get movies', () => {
+    it('/movies (GET)', () => {
+      return request(app.getHttpServer()).get('/movies').expect(200);
+    });
   });
 
   afterAll(async () => {

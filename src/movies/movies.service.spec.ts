@@ -3,7 +3,7 @@ import { MoviesService } from './movies.service';
 import {
   MockRepository,
   createMockRepository,
-} from '../../test/helpers/mock-repository';
+} from '../test/helpers/mock-repository';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Movie } from './entities/movie.entity';
 import { Tag } from './entities/tag.entity';

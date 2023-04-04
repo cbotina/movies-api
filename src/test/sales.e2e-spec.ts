@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { SalesModule } from '../src/sales/sales.module';
-import { Sale } from '../src/sales/entities/sale.entity';
-import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
+import { SalesModule } from '../sales/sales.module';
+import { Sale } from '../sales/entities/sale.entity';
+import { BuyMovieValidator } from '../../src/common/validators/buy-movie.validator';
 
 describe('Sales Controller (e2e)', () => {
   let app: INestApplication;
