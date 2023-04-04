@@ -57,7 +57,7 @@ export class UsersController {
   }
 
   @HttpCode(200)
-  @Post(':id/change-password')
+  @Patch(':id/change-password')
   @UseGuards(UserGuard)
   changePassword(
     @Param('id', ParseIntPipe) id: number,

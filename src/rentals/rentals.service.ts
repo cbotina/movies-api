@@ -14,6 +14,7 @@ import { MoviesValidator } from 'src/common/validators/movies-validator';
 import { Order } from 'src/common/validators/order.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
 import { User } from 'src/users/entities/user.entity';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class RentalsService {
@@ -21,6 +22,7 @@ export class RentalsService {
     private rentMovieValidator: RentMovieValidator,
     private moviesValidator: MoviesValidator,
     private dataSource: DataSource,
+    private mailService: MailService,
     @InjectRepository(Rental)
     private rentalsRepository: Repository<Rental>,
   ) {}
@@ -41,10 +43,13 @@ export class RentalsService {
     }
 
     const response = [];
+
     for (const movieObject of movieObjects) {
       const { movie, amount } = movieObject;
       response.push(await this.rentMovieTransaction(movie, user, amount));
     }
+
+    await this.mailService.sendRentalsDetails(response);
 
     return response;
   }
