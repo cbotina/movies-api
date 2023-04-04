@@ -15,6 +15,7 @@ import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/decorators/roles.decorator';
+import { BuyMoviesDto } from './dto/buy-movies.dto';
 
 @UseGuards(RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
@@ -29,11 +30,13 @@ export class SalesController {
     @Request() req: RequestWithUser,
     @Body() body: CreateSaleBodyDto,
   ) {
-    return this.salesService.buyMovieTransaction(
-      movieId,
-      req.user.id,
-      body.quantity,
-    );
+    return;
+  }
+
+  @Role(Roles.CLIENT)
+  @Post('buy/')
+  buyTest(@Request() req: RequestWithUser, @Body() body: BuyMoviesDto) {
+    return this.salesService.buyMovies(body.movies, req.user.id);
   }
 
   @Role(Roles.ADMIN)
@@ -45,5 +48,11 @@ export class SalesController {
   @Get('sales/:id')
   findOne(@Param('id') id: number) {
     return this.salesService.findOne(+id);
+  }
+
+  @Role(Roles.CLIENT)
+  @Get('mypurchases')
+  mySales(@Request() req: RequestWithUser) {
+    return this.salesService.findSalesByUser(req.user.id);
   }
 }
