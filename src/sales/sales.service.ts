@@ -1,4 +1,9 @@
-import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
@@ -7,6 +12,7 @@ import { BuyMoviesDto, Purchase } from './dto/buy-movies.dto';
 import { MoviesValidator } from 'src/common/validators/movies-validator';
 import { User } from 'src/users/entities/user.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
+import { Order } from 'src/common/validators/order.entity';
 
 @Injectable()
 export class SalesService {
@@ -19,8 +25,12 @@ export class SalesService {
   ) {}
 
   async buyMovies(purchases: Purchase[], userId: number) {
+    const orders: Order[] = purchases.map((purchase) => ({
+      movieId: purchase.movieId,
+      amount: purchase.quantity,
+    }));
     const { user, movieObjects, errors } = await this.moviesValidator.validate(
-      purchases,
+      orders,
       userId,
     );
     if (errors.length > 0) {
@@ -30,8 +40,8 @@ export class SalesService {
 
     const response = [];
     for (const movieObject of movieObjects) {
-      const { movie, quantity } = movieObject;
-      response.push(await this.buyMovieTransaction(movie, user, quantity));
+      const { movie, amount } = movieObject;
+      response.push(await this.buyMovieTransaction(movie, user, amount));
     }
 
     return response;
@@ -82,6 +92,20 @@ export class SalesService {
         user: { id: userId },
       },
     });
+  }
+
+  async findSaleByUser(userId: number, purchaseId: number) {
+    const sale = await this.salesRepository.findOne({
+      relations: { movie: true, user: true },
+      where: {
+        id: purchaseId,
+        user: { id: userId },
+      },
+    });
+    if (!sale) {
+      throw new NotFoundException();
+    }
+    return sale;
   }
 
   findOne(id: number) {

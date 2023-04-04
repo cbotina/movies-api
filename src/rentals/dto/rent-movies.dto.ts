@@ -2,24 +2,19 @@ import { Type } from 'class-transformer';
 import { IsArray, IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
 import { Movie } from 'src/movies/entities/movie.entity';
 
-export class Purchase {
+export class RentalOrder {
   @IsNumber()
   @IsNotEmpty()
   movieId: number;
 
   @IsNumber()
   @IsNotEmpty()
-  quantity: number;
+  days: number;
 }
 
-export class BuyMoviesDto {
+export class RentMoviesDto {
   @ValidateNested({ each: true })
-  @Type(() => Purchase)
+  @Type(() => RentalOrder)
   @IsNotEmpty()
-  movies: Purchase[];
+  movies: RentalOrder[];
 }
-
-export type MovieTransactionObject = {
-  movie: Movie;
-  amount: number;
-};

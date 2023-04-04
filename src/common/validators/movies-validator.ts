@@ -4,7 +4,8 @@ import { Repository } from 'typeorm';
 import { CustomError } from '../template_method/custom-error.interface';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'src/users/entities/user.entity';
-import { BuyMovieObject, Purchase } from 'src/sales/dto/buy-movies.dto';
+import { MovieTransactionObject, Purchase } from 'src/sales/dto/buy-movies.dto';
+import { Order } from './order.entity';
 
 @Injectable()
 export class MoviesValidator {
@@ -15,22 +16,22 @@ export class MoviesValidator {
     private usersRepository: Repository<User>,
   ) {}
 
-  public async validate(purchases: Purchase[], userId: number) {
+  public async validate(orders: Order[], userId: number) {
     const errors: CustomError[] = [];
-    const movieObjects: BuyMovieObject[] = [];
+    const movieObjects: MovieTransactionObject[] = [];
 
     const user = await this.checkUser(userId);
     const error = this.validateUser(user);
 
     if (error) errors.push(error);
 
-    for (const purchase of purchases) {
-      const movie = await this.checkMovie(purchase.movieId);
-      const error = this.validateMovie(movie, purchase.movieId);
+    for (const order of orders) {
+      const movie = await this.checkMovie(order.movieId);
+      const error = this.validateMovie(movie, order.movieId);
       if (error) {
         errors.push(error);
       } else {
-        movieObjects.push({ movie, quantity: purchase.quantity });
+        movieObjects.push({ movie, amount: order.amount });
       }
     }
 

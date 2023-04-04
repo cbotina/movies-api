@@ -9,25 +9,47 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { RentMovieValidator } from 'src/common/validators/rent-movie.validator';
 import { RentalStatus } from './entities/rental.entity';
+import { RentalOrder } from './dto/rent-movies.dto';
+import { MoviesValidator } from 'src/common/validators/movies-validator';
+import { Order } from 'src/common/validators/order.entity';
+import { Movie } from 'src/movies/entities/movie.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class RentalsService {
   constructor(
     private rentMovieValidator: RentMovieValidator,
+    private moviesValidator: MoviesValidator,
     private dataSource: DataSource,
     @InjectRepository(Rental)
     private rentalsRepository: Repository<Rental>,
   ) {}
 
-  async rentMovie(movieId: number, userId: number, days: number) {
-    const { validatedEntities, errors } =
-      await this.rentMovieValidator.validate(movieId, userId);
+  async rentMovies(rentals: RentalOrder[], userId: number) {
+    const orders: Order[] = rentals.map((rental) => ({
+      movieId: rental.movieId,
+      amount: rental.days,
+    }));
+    const { user, movieObjects, errors } = await this.moviesValidator.validate(
+      orders,
+      userId,
+    );
+
     if (errors.length > 0) {
       const { message, status } = errors[0];
       throw new HttpException(message, status);
     }
-    const { user, movie } = validatedEntities;
 
+    const response = [];
+    for (const movieObject of movieObjects) {
+      const { movie, amount } = movieObject;
+      response.push(await this.rentMovieTransaction(movie, user, amount));
+    }
+
+    return response;
+  }
+
+  async rentMovieTransaction(movie: Movie, user: User, days: number) {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -67,15 +89,22 @@ export class RentalsService {
     }
   }
 
-  async returnMovie(movieId: number, userId: number, rentalId: number) {
-    const { validatedEntities, errors } =
-      await this.rentMovieValidator.validate(movieId, userId);
-    if (errors.length > 0) {
-      const { message, status } = errors[0];
-      throw new HttpException(message, status);
+  async returnMovie(userId: number, rentalId: number) {
+    const rental = await this.rentalsRepository.findOne({
+      relations: {
+        movie: true,
+      },
+      where: {
+        id: rentalId,
+        user: { id: userId },
+      },
+    });
+
+    if (!rental) {
+      throw new NotFoundException();
     }
 
-    const { user, movie } = validatedEntities;
+    const { movie } = rental;
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -108,6 +137,29 @@ export class RentalsService {
     return this.rentalsRepository.find({
       loadRelationIds: true,
     });
+  }
+
+  findRentalsByUser(userId: number) {
+    return this.rentalsRepository.find({
+      loadRelationIds: true,
+      where: {
+        user: { id: userId },
+      },
+    });
+  }
+
+  async findRentalByUser(userId: number, rentalId: number) {
+    const rental = await this.rentalsRepository.findOne({
+      relations: { movie: true, user: true },
+      where: {
+        id: rentalId,
+        user: { id: userId },
+      },
+    });
+    if (!rental) {
+      throw new NotFoundException();
+    }
+    return rental;
   }
 
   async findOne(id: number) {

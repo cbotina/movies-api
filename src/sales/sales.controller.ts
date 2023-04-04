@@ -8,6 +8,7 @@ import {
   UseGuards,
   UseInterceptors,
   ClassSerializerInterceptor,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { CreateSaleBodyDto } from './dto/buy-movie-body';
@@ -46,7 +47,7 @@ export class SalesController {
   }
   @Role(Roles.ADMIN)
   @Get('sales/:id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.salesService.findOne(+id);
   }
 
@@ -54,5 +55,14 @@ export class SalesController {
   @Get('mypurchases')
   mySales(@Request() req: RequestWithUser) {
     return this.salesService.findSalesByUser(req.user.id);
+  }
+
+  @Role(Roles.CLIENT)
+  @Get('mypurchases/:purchaseId')
+  mySale(
+    @Request() req: RequestWithUser,
+    @Param('purchaseId', ParseIntPipe) purchaseId: number,
+  ) {
+    return this.salesService.findSaleByUser(req.user.id, purchaseId);
   }
 }
