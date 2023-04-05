@@ -20,7 +20,9 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Public } from 'src/common/decorators/public.decorator';
 import { QueryFilterDto } from './dto/query-filters.dto';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Movies 🎬')
 @UseGuards(RolesGuard)
 @Controller('movies')
 export class MoviesController {
@@ -39,6 +41,7 @@ export class MoviesController {
     return this.moviesService.create(createMovieDto);
   }
 
+  @ApiTags('Tags 🏷️')
   @Post(':movieId/tags')
   @Role(Roles.ADMIN)
   addTagToMovie(
@@ -48,6 +51,7 @@ export class MoviesController {
     return this.moviesService.addTagToMovie(movieId, createTagDto);
   }
 
+  @ApiQuery({ schema: new QueryFilterDto() })
   @Get()
   @Public()
   findAll(
@@ -78,6 +82,7 @@ export class MoviesController {
     return this.moviesService.remove(id);
   }
 
+  @ApiTags('Tags 🏷️')
   @Delete(':movieId/tags/:tagId')
   @Role(Roles.ADMIN)
   removeTagFromMovie(

@@ -12,14 +12,15 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { RentalsService } from './rentals.service';
-import { RentMovieDto } from './dto/rent-movie-body.dto';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 import { ReturnMovieDto } from './dto/return-movie.dto';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/decorators/roles.decorator';
 import { RentMoviesDto } from './dto/rent-movies.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Rentals 🤝')
 @UseGuards(RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('')

@@ -17,7 +17,9 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/decorators/roles.decorator';
 import { BuyMoviesDto } from './dto/buy-movies.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Sales 💹')
 @UseGuards(RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller()

@@ -1,6 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
-import { Movie } from 'src/movies/entities/movie.entity';
+import { IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
 
 export class RentalOrder {
   @IsNumber()

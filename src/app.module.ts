@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { environments } from './config/environments';
 import { dbConfig } from './config/db/database.config';
@@ -12,8 +10,6 @@ import { AuthModule } from './auth/auth.module';
 import { SalesModule } from './sales/sales.module';
 import { RentalsModule } from './rentals/rentals.module';
 import { MailModule } from './mail/mail.module';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { mailConfig } from './config/mail/mail.config';
 
 @Module({
   imports: [
@@ -33,7 +29,5 @@ import { mailConfig } from './config/mail/mail.config';
     RentalsModule,
     MailModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
