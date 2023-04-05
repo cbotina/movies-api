@@ -11,6 +11,9 @@ import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
 import { SalesModule } from './sales/sales.module';
 import { RentalsModule } from './rentals/rentals.module';
+import { MailModule } from './mail/mail.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { mailConfig } from './config/mail/mail.config';
 
 @Module({
   imports: [
@@ -28,6 +31,7 @@ import { RentalsModule } from './rentals/rentals.module';
     AuthModule,
     SalesModule,
     RentalsModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

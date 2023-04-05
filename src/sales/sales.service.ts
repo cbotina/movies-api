@@ -13,6 +13,7 @@ import { MoviesValidator } from 'src/common/validators/movies-validator';
 import { User } from 'src/users/entities/user.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
 import { Order } from 'src/common/validators/order.entity';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class SalesService {
@@ -20,6 +21,7 @@ export class SalesService {
     private buyMovieValidator: BuyMovieValidator,
     private moviesValidator: MoviesValidator,
     private dataSource: DataSource,
+    private mailService: MailService,
     @InjectRepository(Sale)
     private salesRepository: Repository<Sale>,
   ) {}
@@ -44,6 +46,7 @@ export class SalesService {
       response.push(await this.buyMovieTransaction(movie, user, amount));
     }
 
+    await this.mailService.sendPurchaseDetails(response);
     return response;
   }
 

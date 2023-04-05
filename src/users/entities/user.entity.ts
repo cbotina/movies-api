@@ -35,6 +35,9 @@ export class User {
   @OneToMany(() => Rental, (rental) => rental.user)
   rentals: Rental[];
 
+  @Column({ type: 'uuid', unique: true, nullable: true })
+  resetPasswordToken: string;
+
   @Column({
     type: 'enum',
     enum: Roles,

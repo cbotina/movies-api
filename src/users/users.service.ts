@@ -11,10 +11,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles, User } from './entities/user.entity';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { RequestResetPasswordDto } from './dto/request-reset-password.dto';
+import { v4 } from 'uuid';
+import { MailService } from 'src/mail/mail.service';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
+    private mailService: MailService,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
@@ -32,6 +37,36 @@ export class UsersService {
 
     this.usersRepository.save(user);
     return { message: 'Password changed successfully' };
+  }
+
+  async requestResetPassword(requestResetPasswordDto: RequestResetPasswordDto) {
+    const { email } = requestResetPasswordDto;
+    const user: User = await this.findOneByEmail(email);
+    user.resetPasswordToken = v4();
+    this.usersRepository.save(user);
+    await this.mailService.sendPasswordResetEmail(
+      user.email,
+      user.name,
+      user.resetPasswordToken,
+    );
+    return { message: 'Check your email to continue reseting your password' };
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const { token, newPassword } = resetPasswordDto;
+    const user = await this.usersRepository.findOneBy({
+      resetPasswordToken: token,
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User not found`);
+    }
+
+    const hashedPassword = await hash(newPassword, 10);
+    user.resetPasswordToken = null;
+    user.password = hashedPassword;
+
+    this.usersRepository.save(user);
   }
 
   async create(createUserDto: CreateUserDto) {
