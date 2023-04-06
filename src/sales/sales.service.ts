@@ -7,18 +7,16 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
-import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
-import { BuyMoviesDto, Purchase } from './dto/buy-movies.dto';
+import { Purchase } from './dto/buy-movies.dto';
 import { MoviesValidator } from 'src/common/validators/movies-validator';
 import { User } from 'src/users/entities/user.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
-import { Order } from 'src/common/validators/order.entity';
+import { Order } from 'src/common/validators/entities/order.entity';
 import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class SalesService {
   constructor(
-    private buyMovieValidator: BuyMovieValidator,
     private moviesValidator: MoviesValidator,
     private dataSource: DataSource,
     private mailService: MailService,

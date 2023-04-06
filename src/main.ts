@@ -22,8 +22,8 @@ async function bootstrap() {
     .setVersion('0.5')
     .addBearerAuth()
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('docs', app, document);
 
   app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector)));

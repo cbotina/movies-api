@@ -41,15 +41,15 @@ describe('MoviesService', () => {
       expect(service.findAll).toBeDefined();
     });
 
-    it.todo('should return all movies', async () => {
-      const movies = [];
+    // it.todo('should return all movies', async () => {
+    //   const movies = [];
 
-      moviesRepository.find.mockReturnValue(movies);
+    //   moviesRepository.find.mockReturnValue(movies);
 
-      //const result = await service.findAll();
+    //   //const result = await service.findAll();
 
-      //expect(result).toEqual(movies);
-    });
+    //   //expect(result).toEqual(movies);
+    // });
   });
 
   describe('Get one movie', () => {

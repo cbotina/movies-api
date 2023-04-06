@@ -9,6 +9,7 @@ import {
   MockRepository,
   createMockRepository,
 } from '../test/helpers/mock-repository';
+import { MailService } from 'src/mail/mail.service';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -19,6 +20,7 @@ describe('UsersService', () => {
       providers: [
         UsersService,
         { provide: getRepositoryToken(User), useValue: createMockRepository() },
+        { provide: MailService, useValue: {} },
       ],
     }).compile();
 

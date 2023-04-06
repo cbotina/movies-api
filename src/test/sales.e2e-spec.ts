@@ -4,7 +4,6 @@ import * as request from 'supertest';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SalesModule } from '../sales/sales.module';
 import { Sale } from '../sales/entities/sale.entity';
-import { BuyMovieValidator } from '../../src/common/validators/buy-movie.validator';
 
 describe('Sales Controller (e2e)', () => {
   let app: INestApplication;
@@ -16,8 +15,7 @@ describe('Sales Controller (e2e)', () => {
     })
       .overrideProvider(getRepositoryToken(Sale))
       .useValue(salesService)
-      .overrideProvider(BuyMovieValidator)
-      .useValue({})
+
       .compile();
 
     app = moduleFixture.createNestApplication();

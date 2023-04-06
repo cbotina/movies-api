@@ -6,8 +6,9 @@ import { UsersService } from '../../src/users/users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Rental } from './entities/rental.entity';
 import { createMockRepository } from '../test/helpers/mock-repository';
-import { RentMovieValidator } from 'src/common/validators/rent-movie.validator';
 import { DataSource } from 'typeorm';
+import { MoviesValidator } from 'src/common/validators/movies-validator';
+import { MailService } from 'src/mail/mail.service';
 
 describe('RentalsController', () => {
   let controller: RentalsController;
@@ -18,15 +19,10 @@ describe('RentalsController', () => {
       providers: [
         RentalsService,
         { provide: DataSource, useValue: {} },
-        { provide: RentMovieValidator, useValue: {} },
-        {
-          provide: MoviesService,
-          useValue: {},
-        },
-        {
-          provide: UsersService,
-          useValue: {},
-        },
+        { provide: MoviesValidator, useValue: {} },
+        { provide: MoviesService, useValue: {} },
+        { provide: UsersService, useValue: {} },
+        { provide: MailService, useValue: {} },
         {
           provide: getRepositoryToken(Rental),
           useValue: createMockRepository(),
@@ -54,7 +50,7 @@ describe('RentalsController', () => {
   });
   describe('Rent Movie', () => {
     it('should be defined', () => {
-      expect(controller.rentMovie).toBeDefined();
+      expect(controller.rentMovies).toBeDefined();
     });
   });
   describe('Return movie', () => {

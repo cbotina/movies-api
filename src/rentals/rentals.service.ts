@@ -7,11 +7,10 @@ import {
 import { Rental } from './entities/rental.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { RentMovieValidator } from 'src/common/validators/rent-movie.validator';
 import { RentalStatus } from './entities/rental.entity';
 import { RentalOrder } from './dto/rent-movies.dto';
 import { MoviesValidator } from 'src/common/validators/movies-validator';
-import { Order } from 'src/common/validators/order.entity';
+import { Order } from 'src/common/validators/entities/order.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
 import { User } from 'src/users/entities/user.entity';
 import { MailService } from 'src/mail/mail.service';
@@ -19,7 +18,6 @@ import { MailService } from 'src/mail/mail.service';
 @Injectable()
 export class RentalsService {
   constructor(
-    private rentMovieValidator: RentMovieValidator,
     private moviesValidator: MoviesValidator,
     private dataSource: DataSource,
     private mailService: MailService,

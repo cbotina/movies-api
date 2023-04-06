@@ -10,6 +10,7 @@ import { Tag } from '../entities/tag.entity';
 import { BadRequestException } from '@nestjs/common';
 import { QueryFilterDto } from '../dto/query-filters.dto';
 import { WhereQueryObject } from '../types/where-queryobject';
+import { ILike } from 'typeorm';
 
 describe('Utils', () => {
   describe('Option validator', () => {
@@ -127,7 +128,7 @@ describe('Utils', () => {
       };
 
       const expected: WhereQueryObject = {
-        title: 'Cruella',
+        title: ILike('%Cruella%'),
         availability: true,
         tags: [{ name: 'horror' }, { name: 'action' }],
       };

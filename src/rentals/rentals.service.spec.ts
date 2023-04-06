@@ -8,10 +8,11 @@ import {
   MockRepository,
   createMockRepository,
 } from '../test/helpers/mock-repository';
-import { RentMovieValidator } from 'src/common/validators/rent-movie.validator';
 import { DataSource } from 'typeorm';
 import { Movie } from 'src/movies/entities/movie.entity';
 import { User } from 'src/users/entities/user.entity';
+import { MoviesValidator } from 'src/common/validators/movies-validator';
+import { MailService } from 'src/mail/mail.service';
 
 describe('RentalsService', () => {
   let service: RentalsService;
@@ -22,15 +23,10 @@ describe('RentalsService', () => {
       providers: [
         RentalsService,
         { provide: DataSource, useValue: {} },
-        { provide: RentMovieValidator, useValue: {} },
-        {
-          provide: MoviesService,
-          useValue: {},
-        },
-        {
-          provide: UsersService,
-          useValue: {},
-        },
+        { provide: MoviesService, useValue: {} },
+        { provide: UsersService, useValue: {} },
+        { provide: MoviesValidator, useValue: {} },
+        { provide: MailService, useValue: {} },
         {
           provide: getRepositoryToken(Rental),
           useValue: createMockRepository(),

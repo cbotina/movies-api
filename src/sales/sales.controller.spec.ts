@@ -6,8 +6,9 @@ import { UsersService } from '../../src/users/users.service';
 import { Sale } from './entities/sale.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { createMockRepository } from '../test/helpers/mock-repository';
-import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
 import { DataSource } from 'typeorm';
+import { MoviesValidator } from 'src/common/validators/movies-validator';
+import { MailService } from 'src/mail/mail.service';
 
 describe('SalesController', () => {
   let controller: SalesController;
@@ -18,19 +19,11 @@ describe('SalesController', () => {
       providers: [
         SalesService,
         { provide: DataSource, useValue: {} },
-        { provide: BuyMovieValidator, useValue: {} },
-        {
-          provide: MoviesService,
-          useValue: {},
-        },
-        {
-          provide: UsersService,
-          useValue: {},
-        },
-        {
-          provide: getRepositoryToken(Sale),
-          useValue: createMockRepository(),
-        },
+        { provide: MoviesService, useValue: {} },
+        { provide: UsersService, useValue: {} },
+        { provide: MoviesValidator, useValue: {} },
+        { provide: MailService, useValue: {} },
+        { provide: getRepositoryToken(Sale), useValue: createMockRepository() },
       ],
     }).compile();
 

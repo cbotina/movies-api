@@ -20,13 +20,7 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Public } from 'src/common/decorators/public.decorator';
 import { QueryFilterDto } from './dto/query-filters.dto';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiParam,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @UseGuards(RolesGuard)
 @Controller('movies')

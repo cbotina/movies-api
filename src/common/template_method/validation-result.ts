@@ -1,11 +1,9 @@
-import { Movie } from 'src/movies/entities/movie.entity';
 import { CustomError } from './custom-error.interface';
 import { User } from 'src/users/entities/user.entity';
+import { MovieTransactionObject } from 'src/sales/dto/buy-movies.dto';
 
 export interface ValidationResult {
-  errors?: CustomError[];
-  validatedEntities: {
-    movie?: Movie;
-    user?: User;
-  };
+  errors: CustomError[];
+  movieObjects: MovieTransactionObject[];
+  user: User;
 }
