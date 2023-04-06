@@ -200,6 +200,72 @@ describe('RentalsService', () => {
     });
   });
 
+  describe('Find All Rentals', () => {
+    it('should return all rentals', () => {
+      rentalsRepository.find.mockReturnValue([]);
+      const result = service.findAll();
+
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe('Find User Rentals', () => {
+    it('should return user rentals', () => {
+      rentalsRepository.find.mockReturnValue([]);
+      const result = service.findRentalsByUser(1);
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe('Find User Rental', () => {
+    describe('When rental exists', () => {
+      it('should return the rental', async () => {
+        const rental = new Rental();
+
+        rentalsRepository.findOne.mockReturnValue(rental);
+        const result = await service.findRentalByUser(1, 1);
+
+        expect(result).toEqual(rental);
+      });
+    });
+    describe('Otherwise', () => {
+      it('should throw a NotFoundException', async () => {
+        rentalsRepository.findOne.mockReturnValue(null);
+        try {
+          await service.findRentalByUser(1, 1);
+        } catch (err) {
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toEqual('Rental not found');
+        }
+      });
+    });
+  });
+
+  describe('Find  Rental', () => {
+    describe('When rental exists', () => {
+      it('should return the rental', async () => {
+        const rental = new Rental();
+
+        rentalsRepository.findOne.mockReturnValue(rental);
+        const result = await service.findOne(1);
+
+        expect(result).toEqual(rental);
+      });
+    });
+    describe('Otherwise', () => {
+      it('should throw a NotFoundException', async () => {
+        const rentalId = 1;
+        rentalsRepository.findOne.mockReturnValue(null);
+        try {
+          await service.findOne(1);
+        } catch (err) {
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toEqual(`Rental #${rentalId} not found`);
+        }
+      });
+    });
+  });
+
   afterEach(() => {
     rentalsRepository.findOne.mockReset();
     rentalsRepository.create.mockReset();

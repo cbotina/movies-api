@@ -160,7 +160,7 @@ export class RentalsService {
       },
     });
     if (!rental) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Rental not found`);
     }
     return rental;
   }
