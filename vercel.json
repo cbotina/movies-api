@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "buils": [
+  "builds": [
     {
-      "src": "src/main.ts",
-      "use": "@vercel/node"
+      "src": "nest-cli.json",
+      "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/main.ts",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+      "dest": "main.js"
     }
   ]
 }
