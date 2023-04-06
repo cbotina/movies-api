@@ -37,9 +37,12 @@ describe('SalesService', () => {
         },
         { provide: UsersService, useValue: {} },
         { provide: MoviesService, useValue: {} },
-        { provide: getRepositoryToken(Sale), useValue: createMockRepository() },
         { provide: MoviesValidator, useValue: { validate: jest.fn() } },
         { provide: MailService, useValue: { sendPurchaseDetails: jest.fn() } },
+        {
+          provide: getRepositoryToken(Sale),
+          useValue: createMockRepository(),
+        },
       ],
     }).compile();
 
@@ -124,7 +127,7 @@ describe('SalesService', () => {
 
       it('should throw a BadRequestException', async () => {
         try {
-          service.buyMovieTransaction(movie, user, quantity);
+          await service.buyMovieTransaction(movie, user, quantity);
         } catch (err) {
           expect(err).toBeInstanceOf(BadRequestException);
           expect(err.message).toEqual(`Insufficient balance for purchase`);

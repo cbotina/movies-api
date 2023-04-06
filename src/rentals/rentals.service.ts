@@ -104,7 +104,7 @@ export class RentalsService {
     });
 
     if (!rental) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Rental not found`);
     }
 
     const { movie } = rental;
