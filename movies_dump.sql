@@ -219,6 +219,7 @@ CREATE TABLE public.user_table (
     email character varying NOT NULL,
     password character varying NOT NULL,
     balance integer DEFAULT 0 NOT NULL,
+    "resetPasswordToken" uuid,
     role public.user_table_role_enum DEFAULT 'client'::public.user_table_role_enum NOT NULL
 );
 
@@ -287,19 +288,6 @@ ALTER TABLE ONLY public.user_table ALTER COLUMN id SET DEFAULT nextval('public.u
 --
 
 COPY public.movie (id, title, description, "posterLink", stock, "trailerLink", "rentPrice", "salePrice", likes, availability) FROM stdin;
-2	The Terrifier II	El payaso Art resucita en la morgue. Un año después, en la noche de Halloween, el siniestro psicópata vuelve al condado de Miles para atacar a unos hermanos adolescentes cuyo difunto padre les legó un libro con bocetos premonitorios sobre Art.	https://pics.filmaffinity.com/Terrifier_2-139025282-large.jpg	5	https://www.youtube.com/watch?v=UOrNESb8T4I	5	20	75	f
-5	The Terminator	A cyborg assassin is sent back in time to kill Sarah Connor, the woman whose unborn son will become humanity's only hope in a future war against machines.	https://upload.wikimedia.org/wikipedia/en/7/70/Terminator1984movieposter.jpg	13	https://www.youtube.com/watch?v=frdj1zb9sMY	5	20	100	t
-1	The Whale	A morbidly obese and reclusive English instructor, teaches online writing courses but keeps his webcam off, ashamed of his physical appearance.	https://m.media-amazon.com/images/M/MV5BZDQ4Njg4YTctNGZkYi00NWU1LWI4OTYtNmNjOWMyMjI1NWYzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg	0	https://www.youtube.com/watch?v=D30r0CwtIKc	7	20	55	t
-6	The Shining	A family heads to an isolated hotel for the winter where a sinister presence influences the father into violence, while his psychic son sees horrific forebodings from both past and future.	https://upload.wikimedia.org/wikipedia/en/4/4d/The_Shining_%281980%29_UK_theatrical_poster.jpg	7	https://www.youtube.com/watch?v=S014oGZiSdI	4	15	90	t
-7	Die Hard	An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles.	https://upload.wikimedia.org/wikipedia/en/7/7e/Die_hard.jpg	12	https://www.youtube.com/watch?v=2TQ-pOvI6Xo	6	25	80	t
-8	The Exorcist	When a teenage girl is possessed by a mysterious entity, her mother seeks the help of two priests to save her daughter.	https://upload.wikimedia.org/wikipedia/en/5/5a/Exorcist-poster-d.jpg	6	https://www.youtube.com/watch?v=YDGw1MTEe9k	3	12	70	t
-9	Predator	A team of commandos on a mission in a Central American jungle find themselves hunted by an extraterrestrial warrior.	https://upload.wikimedia.org/wikipedia/en/9/95/Predator_Movie.jpg	9	https://www.youtube.com/watch?v=Y1txEAywdiw	5	18	85	t
-10	The Nightingale	In 1825, Clare, a young Irish convict, chases a British officer through the rugged Tasmanian wilderness	https://pics.filmaffinity.com/the_nightingale-365512699-large.jpg	3	https://www.youtube.com/watch?v=7Nf2CispZf0	6	25	63	t
-11	Dune	Feature adaptation of Frank Herbert's science fiction novel, about the son of a noble family entrusted with the protection of the most valuable asset and most vital element in the galaxy.	https://pics.filmaffinity.com/dune-296883364-large.jpg	2	https://www.youtube.com/watch?v=8g18jFHCLXk	8	30	92	t
-12	No Time to Die	James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.	https://pics.filmaffinity.com/no_time_to_die-482588847-large.jpg	4	https://www.youtube.com/watch?v=L3kYuLj5UTA	10	35	85	t
-13	The French Dispatch	A love letter to journalists set in an outpost of an American newspaper in a fictional 20th-century French city that brings to life a collection of stories published in The French Dispatch magazine.	https://pics.filmaffinity.com/the_french_dispatch-995476288-large.jpg	1	https://www.youtube.com/watch?v=TcPk2p0Zaw4	7	28	51	t
-14	Cruella	A live-action prequel feature film following a young Cruella de Vil.	https://pics.filmaffinity.com/Cruella-696692897-large.jpg	6	https://www.youtube.com/watch?v=jpZrVxv_8hc	9	32	77	t
-4	Terrifier II	A live-action prequel feature film following a young Cruella de Vil.	https://pics.filmaffinity.com/Cruella-696692897-large.jpg	6	https://www.youtube.com/watch?v=jpZrVxv_8hc	9	32	77	t
 \.
 
 
@@ -308,8 +296,6 @@ COPY public.movie (id, title, description, "posterLink", stock, "trailerLink", "
 --
 
 COPY public.movie_tags_tag ("movieId", "tagId") FROM stdin;
-2	3
-6	5
 \.
 
 
@@ -318,10 +304,6 @@ COPY public.movie_tags_tag ("movieId", "tagId") FROM stdin;
 --
 
 COPY public.rental (id, "rentalDate", "dueDate", "returnDate", status, "userId", "movieId") FROM stdin;
-14	2023-03-31	2023-04-01	\N	active	2	1
-15	2023-03-31	2023-04-01	\N	active	2	1
-16	2023-03-31	2023-04-01	\N	active	2	1
-17	2023-03-31	2023-04-03	2023-03-31	returned	3	5
 \.
 
 
@@ -330,11 +312,6 @@ COPY public.rental (id, "rentalDate", "dueDate", "returnDate", status, "userId",
 --
 
 COPY public.sale (id, quantity, "datePurchased", "userId", "movieId") FROM stdin;
-1	1	2023-03-31	3	1
-2	1	2023-03-31	3	1
-3	1	2023-03-31	3	4
-4	1	2023-03-31	3	4
-5	1	2023-03-31	3	4
 \.
 
 
@@ -343,11 +320,6 @@ COPY public.sale (id, quantity, "datePurchased", "userId", "movieId") FROM stdin
 --
 
 COPY public.tag (id, name) FROM stdin;
-1	action
-2	adventures
-3	horror
-4	clowns
-5	drama
 \.
 
 
@@ -355,10 +327,8 @@ COPY public.tag (id, name) FROM stdin;
 -- Data for Name: user_table; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.user_table (id, name, surname, email, password, balance, role) FROM stdin;
-1	admin	admin	admin@applaudostudios.com	$2b$10$syJ94a5bZ7nSnRjrYEm/O.PiYHZPuRkNOSmZ1Oxm.uGUVbsoNIuBG	0	admin
-2	Carlos	Botina	cbotina@applaudostudios.com	$2b$10$VUp1aLV.HI/BCdXvRMgqyu.w9yjfznYHmmf3s157wghH5sg0UI2AW	65	client
-3	Random	User	randomuser@applaudostudios.com	$2b$10$EZGlpgCxAgjSNtSeJOh8eeB5Jvs.416xyowhR3o5NfStGwm8IUiOC	6	client
+COPY public.user_table (id, name, surname, email, password, balance, "resetPasswordToken", role) FROM stdin;
+1	admin	admin	admin@applaudostudios.dev	$2b$10$imYIxcltFZZTCoHR/UFCxu9upvTbmLSecnCBhQsAeGkRpBosuFlNC	0	\N	admin
 \.
 
 
@@ -366,35 +336,35 @@ COPY public.user_table (id, name, surname, email, password, balance, role) FROM 
 -- Name: movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.movie_id_seq', 15, true);
+SELECT pg_catalog.setval('public.movie_id_seq', 1, false);
 
 
 --
 -- Name: rental_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.rental_id_seq', 17, true);
+SELECT pg_catalog.setval('public.rental_id_seq', 1, false);
 
 
 --
 -- Name: sale_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.sale_id_seq', 5, true);
+SELECT pg_catalog.setval('public.sale_id_seq', 1, false);
 
 
 --
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 5, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 1, false);
 
 
 --
 -- Name: user_table_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_table_id_seq', 3, true);
+SELECT pg_catalog.setval('public.user_table_id_seq', 1, true);
 
 
 --
@@ -443,6 +413,14 @@ ALTER TABLE ONLY public.movie
 
 ALTER TABLE ONLY public.sale
     ADD CONSTRAINT "PK_d03891c457cbcd22974732b5de2" PRIMARY KEY (id);
+
+
+--
+-- Name: user_table UQ_08a1b4f87aba79a8f7b13ed817e; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_table
+    ADD CONSTRAINT "UQ_08a1b4f87aba79a8f7b13ed817e" UNIQUE ("resetPasswordToken");
 
 
 --

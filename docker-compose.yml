@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      PORT: 3000
+      DB_USERNAME: postgres
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db
+      DB_NAME: postgres
+      DB_PORT: 5432
+      JWT_SECRET: ${JWT_SECRET}
+      EMAIL_PASS: ${EMAIL_PASS}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_USER: ${EMAIL_USER}
+    
+  db:
+    image: postgres:12-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 123456789
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./movies_dump.sql:/dump.sql
+volumes:
+  db-data:

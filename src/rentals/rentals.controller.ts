@@ -18,8 +18,9 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/decorators/roles.decorator';
 import { RentMoviesDto } from './dto/rent-movies.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('Rentals 🤝')
 @UseGuards(RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
@@ -45,6 +46,7 @@ export class RentalsController {
   }
 
   @Role(Roles.ADMIN)
+  @ApiParam({ name: 'id', description: `Rental id`, example: 1 })
   @Get('rentals/:id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.rentalsService.findOne(id);
@@ -57,10 +59,11 @@ export class RentalsController {
   }
 
   @Role(Roles.CLIENT)
-  @Get('myrentals/:rentalId')
+  @Get('myrentals/:id')
+  @ApiParam({ name: 'id', description: `Rental id`, example: 1 })
   myRental(
     @Request() req: RequestWithUser,
-    @Param('rentalId', ParseIntPipe) rentalId: number,
+    @Param('id', ParseIntPipe) rentalId: number,
   ) {
     return this.rentalsService.findRentalByUser(req.user.id, rentalId);
   }

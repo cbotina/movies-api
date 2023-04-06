@@ -12,7 +12,6 @@ import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
 import { DataSource } from 'typeorm';
 import { Movie } from 'src/movies/entities/movie.entity';
 import { User } from 'src/users/entities/user.entity';
-import { CreateSaleBodyDto } from './dto/buy-movie-body';
 
 describe('SalesService', () => {
   let service: SalesService;

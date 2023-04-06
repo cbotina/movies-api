@@ -20,9 +20,14 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Public } from 'src/common/decorators/public.decorator';
 import { QueryFilterDto } from './dto/query-filters.dto';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
-@ApiTags('Movies 🎬')
 @UseGuards(RolesGuard)
 @Controller('movies')
 export class MoviesController {
@@ -35,6 +40,8 @@ export class MoviesController {
   }
   parseArrayPipe: ParseArrayPipe;
 
+  @ApiTags('Movies 🎬')
+  @ApiBearerAuth()
   @Post()
   @Role(Roles.ADMIN)
   create(@Body() createMovieDto: CreateMovieDto) {
@@ -42,6 +49,8 @@ export class MoviesController {
   }
 
   @ApiTags('Tags 🏷️')
+  @ApiBearerAuth()
+  @ApiParam({ name: `movieId`, description: `Movie id`, example: 1 })
   @Post(':movieId/tags')
   @Role(Roles.ADMIN)
   addTagToMovie(
@@ -51,6 +60,7 @@ export class MoviesController {
     return this.moviesService.addTagToMovie(movieId, createTagDto);
   }
 
+  @ApiTags('Movies 🎬')
   @ApiQuery({ schema: new QueryFilterDto() })
   @Get()
   @Public()
@@ -61,13 +71,18 @@ export class MoviesController {
     return this.moviesService.findAll(queryFilterDto);
   }
 
+  @ApiTags('Movies 🎬')
   @Get(':id')
+  @ApiParam({ name: 'id', description: `Movie's id`, example: 1 })
   @Public()
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.moviesService.findOne(+id);
   }
 
+  @ApiTags('Movies 🎬')
+  @ApiBearerAuth()
   @Patch(':id')
+  @ApiParam({ name: 'id', description: `Movie's id`, example: 1 })
   @Role(Roles.ADMIN)
   update(
     @Param('id', ParseIntPipe) id: string,
@@ -76,13 +91,19 @@ export class MoviesController {
     return this.moviesService.update(+id, updateMovieDto);
   }
 
+  @ApiTags('Movies 🎬')
+  @ApiBearerAuth()
   @Delete(':id')
+  @ApiParam({ name: 'id', description: `Movie's id`, example: 1 })
   @Role(Roles.ADMIN)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.remove(id);
   }
 
+  @ApiBearerAuth()
   @ApiTags('Tags 🏷️')
+  @ApiParam({ name: 'movieId', description: `Movie's id`, example: 1 })
+  @ApiParam({ name: 'tagId', description: `Tag's id`, example: 1 })
   @Delete(':movieId/tags/:tagId')
   @Role(Roles.ADMIN)
   removeTagFromMovie(

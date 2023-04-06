@@ -21,13 +21,7 @@ import { Role } from 'src/common/decorators/roles.decorator';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 import { UserGuard } from 'src/common/guards/user-id.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import {
-  ApiBearerAuth,
-  ApiParam,
-  ApiQuery,
-  ApiSecurity,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users 👤')
 @ApiBearerAuth()
@@ -73,7 +67,6 @@ export class UsersController {
   @UseGuards(UserGuard)
   @ApiParam({ name: 'id', description: 'User id', example: 1 })
   @Patch(':id/change-password')
-  @UseGuards(UserGuard)
   changePassword(
     @Param('id', ParseIntPipe) id: number,
     @Body() changePasswordDto: ChangePasswordDto,

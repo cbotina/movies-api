@@ -36,7 +36,7 @@ export class User {
   rentals: Rental[];
 
   @Column({ type: 'uuid', unique: true, nullable: true })
-  resetPasswordToken: string;
+  resetPasswordToken?: string;
 
   @Column({
     type: 'enum',
