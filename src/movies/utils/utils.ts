@@ -2,6 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import { Tag } from '../entities/tag.entity';
 import { QueryFilterDto } from '../dto/query-filters.dto';
 import { WhereQueryObject } from '../types/where-queryobject';
+import { ILike } from 'typeorm';
 
 const validSortOptions = ['title', 'likes'];
 
@@ -66,7 +67,7 @@ export const getWhereQueryObject = (
 ): WhereQueryObject => {
   const whereQueryObject: WhereQueryObject = {};
   const { title, availability, tags } = queryFilterDto;
-  if (title) whereQueryObject.title = title;
+  if (title) whereQueryObject.title = ILike(`%${title}%`);
   if (availability) {
     whereQueryObject.availability = getAvailableObject(availability);
   }

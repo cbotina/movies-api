@@ -6,7 +6,9 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { RequestResetPasswordDto } from 'src/users/dto/request-reset-password.dto';
 import { ResetPasswordDto } from 'src/users/dto/reset-password.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Authentication 🔐')
 @Controller('auth')
 export class AuthController {
   constructor(

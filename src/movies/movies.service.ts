@@ -33,7 +33,6 @@ export class MoviesService {
   }
 
   findAll(queryFilterDto: QueryFilterDto) {
-    console.log(queryFilterDto);
     const sortOptions = queryFilterDto.sort ?? ['title'];
 
     const { errors, validOptions } = validateSortOptions(sortOptions);

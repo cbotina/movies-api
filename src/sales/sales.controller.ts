@@ -11,28 +11,20 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
-import { CreateSaleBodyDto } from './dto/buy-movie-body';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/decorators/roles.decorator';
 import { BuyMoviesDto } from './dto/buy-movies.dto';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Sales 💹')
 @UseGuards(RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller()
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
-
-  @Role(Roles.CLIENT)
-  @Post('buy/:movieId')
-  buy(
-    @Param('movieId') movieId: number,
-    @Request() req: RequestWithUser,
-    @Body() body: CreateSaleBodyDto,
-  ) {
-    return;
-  }
 
   @Role(Roles.CLIENT)
   @Post('buy/')
@@ -45,7 +37,9 @@ export class SalesController {
   findAll() {
     return this.salesService.findAll();
   }
+
   @Role(Roles.ADMIN)
+  @ApiParam({ name: 'id', description: `Purchase id`, example: 1 })
   @Get('sales/:id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.salesService.findOne(+id);
@@ -58,10 +52,11 @@ export class SalesController {
   }
 
   @Role(Roles.CLIENT)
-  @Get('mypurchases/:purchaseId')
+  @ApiParam({ name: 'id', description: `Purchase id`, example: 1 })
+  @Get('mypurchases/:id')
   mySale(
     @Request() req: RequestWithUser,
-    @Param('purchaseId', ParseIntPipe) purchaseId: number,
+    @Param('id', ParseIntPipe) purchaseId: number,
   ) {
     return this.salesService.findSaleByUser(req.user.id, purchaseId);
   }

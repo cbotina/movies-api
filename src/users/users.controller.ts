@@ -21,7 +21,10 @@ import { Role } from 'src/common/decorators/roles.decorator';
 import { RequestWithUser } from 'src/common/interfaces/request-with-user';
 import { UserGuard } from 'src/common/guards/user-id.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users 👤')
+@ApiBearerAuth()
 @UseGuards(RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
@@ -34,6 +37,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @ApiParam({ name: 'id', description: 'User id', example: 1 })
   @UseGuards(UserGuard)
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
@@ -41,6 +45,7 @@ export class UsersController {
 
   @Patch(':id')
   @UseGuards(UserGuard)
+  @ApiParam({ name: 'id', description: 'User id', example: 1 })
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -50,6 +55,8 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @UseGuards(UserGuard)
+  @ApiParam({ name: 'id', description: 'User id', example: 1 })
   @Role(Roles.ADMIN)
   @HttpCode(204)
   remove(@Param('id', ParseIntPipe) id: number) {
@@ -57,8 +64,9 @@ export class UsersController {
   }
 
   @HttpCode(200)
-  @Patch(':id/change-password')
   @UseGuards(UserGuard)
+  @ApiParam({ name: 'id', description: 'User id', example: 1 })
+  @Patch(':id/change-password')
   changePassword(
     @Param('id', ParseIntPipe) id: number,
     @Body() changePasswordDto: ChangePasswordDto,
