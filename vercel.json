@@ -1,17 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "PORT": "@PORT",
-    "DB_USERNAME": "@DB_USERNAME",
-    "DB_PASSWORD": "@DB_PASSWORD",
-    "DB_HOST": "@DB_HOST",
-    "DB_NAME": "@DB_NAME",
-    "DB_PORT": "@DB_PORT",
-    "JWT_SECRET": "@JWT_SECRET",
-    "EMAIL_PASS": "@EMAIL_PASS",
-    "EMAIL_HOST": "@EMAIL_HOST",
-    "EMAIL_USER": "@EMAIL_USER"
-  },
   "builds": [
     {
       "src": "nest-cli.json",
