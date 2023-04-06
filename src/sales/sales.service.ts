@@ -74,6 +74,7 @@ export class SalesService {
       await queryRunner.commitTransaction();
       return createdSale;
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       throw new BadRequestException(err.message);
     } finally {
       await queryRunner.release();
@@ -104,15 +105,21 @@ export class SalesService {
       },
     });
     if (!sale) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Sale not found`);
     }
     return sale;
   }
 
-  findOne(id: number) {
-    return this.salesRepository.findOne({
+  async findOne(id: number) {
+    const sale = await this.salesRepository.findOne({
       relations: { movie: true, user: true },
       where: { id },
     });
+
+    if (!sale) {
+      throw new NotFoundException(`Sale #${id} not found`);
+    }
+
+    return sale;
   }
 }

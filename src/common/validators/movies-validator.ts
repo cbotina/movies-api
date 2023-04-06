@@ -31,7 +31,7 @@ export class MoviesValidator {
 
     for (const order of orders) {
       const movie = await this.checkMovie(order.movieId);
-      const error = this.validateMovie(movie, order.movieId);
+      const error = this.validateMovie(movie, order.movieId, order.amount);
       if (error) {
         errors.push(error);
       } else {
@@ -47,14 +47,18 @@ export class MoviesValidator {
     return movie;
   }
 
-  protected validateMovie(movie: Movie, movieId: number): CustomError {
+  protected validateMovie(
+    movie: Movie,
+    movieId: number,
+    amount: number,
+  ): CustomError {
     if (!movie) {
       return {
         message: `Movie #${movieId} not found`,
         status: HttpStatus.NOT_FOUND,
       };
     }
-    if (movie.stock === 0) {
+    if (movie.stock === 0 || movie.stock < amount) {
       return {
         message: `Movie #${movieId} out of stock`,
         status: HttpStatus.CONFLICT,

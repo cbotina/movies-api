@@ -30,6 +30,7 @@ export class AuthController {
 
   @HttpCode(200)
   @Post('request-reset-password')
+  @Public()
   requestResetPassword(
     @Body() requestResetPasswordDto: RequestResetPasswordDto,
   ) {
@@ -38,6 +39,7 @@ export class AuthController {
 
   @HttpCode(200)
   @Patch('reset-password')
+  @Public()
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.usersService.resetPassword(resetPasswordDto);
   }

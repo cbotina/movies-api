@@ -36,66 +36,66 @@ describe('MoviesService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('Get All Movies', () => {
-    it('should be defined', () => {
-      expect(service.findAll).toBeDefined();
-    });
-
-    // it.todo('should return all movies', async () => {
-    //   const movies = [];
-
-    //   moviesRepository.find.mockReturnValue(movies);
-
-    //   //const result = await service.findAll();
-
-    //   //expect(result).toEqual(movies);
-    // });
+  describe('Create movie', () => {
+    it.todo('should return the created movie');
   });
 
-  describe('Get one movie', () => {
-    it('should be defined', () => {
-      expect(service).toBeDefined();
+  describe('Find all movies', () => {
+    describe('When passing valid sort options', () => {
+      it.todo('should return the movies');
     });
-
-    describe('When user exists', () => {
-      it('should return one movie', async () => {
-        const movieId = 1;
-        const movie: Movie = {
-          availability: true,
-          description: '',
-          id: movieId,
-          likes: 1,
-          posterLink: '',
-          rentals: [],
-          rentPrice: 1,
-          salePrice: 1,
-          sales: [],
-          stock: 1,
-          tags: [],
-          title: '',
-          trailerLink: '',
-        };
-
-        moviesRepository.findOne.mockReturnValue(movie);
-
-        const result = await service.findOne(movieId);
-
-        expect(result).toEqual(movie);
-      });
+    describe('When passing invalid sort options', () => {
+      it.todo('should throw BadRequestException');
     });
+  });
 
+  describe('Find one movie', () => {
+    describe('When movie exists', () => {
+      it.todo('should return the movie');
+    });
     describe('Otherwise', () => {
-      it('should throw "NotFoundException"', async () => {
-        const userId = 1;
-        moviesRepository.findOneBy.mockReturnValue(null);
+      it.todo('should throw NotFoundException');
+    });
+  });
 
-        try {
-          await service.findOne(userId);
-        } catch (error) {
-          expect(error).toBeInstanceOf(NotFoundException);
-          expect(error.message).toEqual(`Movie #${userId} not found`);
-        }
+  describe('Update movie', () => {
+    describe('When movie exists', () => {
+      it.todo('should return the updated movie');
+    });
+    describe('Otherwise', () => {
+      it.todo('should throw NotFoundException');
+    });
+  });
+
+  describe('Remove movie', () => {
+    describe('When movie exists', () => {
+      it.todo('should return nothing');
+    });
+    describe('Otherwise', () => {
+      it.todo('should throw NotFoundException');
+    });
+  });
+
+  describe('Add tag to movie', () => {
+    describe('When movie exists', () => {
+      describe('When tag exists', () => {
+        it.todo('should add existing tag to movie');
       });
+      describe(`When tag doesn't exists`, () => {
+        it.todo('should create a new tag and add it to movie');
+      });
+    });
+    describe(`When movie doesn't exists`, () => {
+      it.todo('should return NotFoundException');
+    });
+  });
+
+  describe('Remove tag from movie', () => {
+    describe('When movie exists', () => {
+      it.todo('should return the movie withoud the tag');
+    });
+    describe('Otherwise', () => {
+      it.todo('should throw NotFoundException');
     });
   });
 });

@@ -25,7 +25,12 @@ export class UsersService {
   ) {}
 
   async changePassword(changePasswordDto: ChangePasswordDto, userId: number) {
-    const user = await this.usersRepository.findOneByOrFail({ id: userId });
+    const user = await this.usersRepository.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new NotFoundException(`User #${userId} not found`);
+    }
+
     const { oldPassword, newPassword } = changePasswordDto;
 
     const checkPassword = compareSync(oldPassword, user.password);
@@ -59,7 +64,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException(`User not found`);
+      throw new NotFoundException(`Invalid Token`);
     }
 
     const hashedPassword = await hash(newPassword, 10);
@@ -67,6 +72,8 @@ export class UsersService {
     user.password = hashedPassword;
 
     this.usersRepository.save(user);
+
+    return { message: 'Password changed successfully' };
   }
 
   async create(createUserDto: CreateUserDto) {

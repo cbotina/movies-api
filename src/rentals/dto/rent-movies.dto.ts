@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  ValidateNested,
+} from 'class-validator';
 
 export class RentalOrder {
   @ApiProperty({
@@ -16,6 +21,7 @@ export class RentalOrder {
     example: 1,
   })
   @IsNumber()
+  @IsPositive()
   @IsNotEmpty()
   days: number;
 }
