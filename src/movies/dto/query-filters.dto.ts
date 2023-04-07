@@ -28,6 +28,7 @@ export class QueryFilterDto {
 
   @ApiProperty({
     description: `Filter to search by tags, you can provide multiple tags separated by commas. e.g. "horror,drama"`,
+    type: String,
     required: false,
   })
   @IsArray()
@@ -37,6 +38,7 @@ export class QueryFilterDto {
 
   @ApiProperty({
     description: `Sort by title or likes. Add a '-' sign before the filter to specify a descendent order. Separate with commas e.g. "title,-likes"`,
+    type: String,
     required: false,
   })
   @IsArray()

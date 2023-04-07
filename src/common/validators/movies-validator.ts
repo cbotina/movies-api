@@ -42,16 +42,12 @@ export class MoviesValidator {
     return { errors, movieObjects, user };
   }
 
-  protected async checkMovie(movieId: number): Promise<Movie> {
+  async checkMovie(movieId: number): Promise<Movie> {
     const movie = await this.moviesRepository.findOneBy({ id: movieId });
     return movie;
   }
 
-  protected validateMovie(
-    movie: Movie,
-    movieId: number,
-    amount: number,
-  ): CustomError {
+  validateMovie(movie: Movie, movieId: number, amount: number): CustomError {
     if (!movie) {
       return {
         message: `Movie #${movieId} not found`,
@@ -74,12 +70,12 @@ export class MoviesValidator {
     return null;
   }
 
-  protected async checkUser(userId: number): Promise<User> {
+  async checkUser(userId: number): Promise<User> {
     const user = await this.usersRepository.findOneBy({ id: userId });
     return user;
   }
 
-  protected validateUser(user: User): CustomError {
+  validateUser(user: User): CustomError {
     if (!user) {
       return { message: `User not found`, status: HttpStatus.NOT_FOUND };
     }

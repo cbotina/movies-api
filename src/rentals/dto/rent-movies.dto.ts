@@ -28,7 +28,6 @@ export class RentalOrder {
 
 export class RentMoviesDto {
   @ApiProperty({
-    type: new RentalOrder(),
     description: `An array of rental orders to be processed`,
     example: [
       { movieId: 1, days: 1 },
