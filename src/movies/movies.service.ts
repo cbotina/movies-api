@@ -89,6 +89,10 @@ export class MoviesService {
       relations: { tags: true },
     });
 
+    if (!movie) {
+      throw new NotFoundException(`Movie #${movieId} not found`);
+    }
+
     let tag: Tag = await this.tagsRepository.findOneBy(createTagDto);
 
     if (!tag) {
@@ -105,6 +109,10 @@ export class MoviesService {
       where: { id: movieId },
       relations: { tags: true },
     });
+
+    if (!movie) {
+      throw new NotFoundException(`Movie #${movieId} not found`);
+    }
 
     movie.tags = movie.tags.filter((tag) => tag.id !== tagId);
 

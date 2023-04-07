@@ -108,5 +108,160 @@
     "salePrice": 32,
     "likes": 77,
     "availability": true
+  },
+  {
+    "title": "The Godfather",
+    "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+    "stock": 5,
+    "trailerLink": "https://www.youtube.com/watch?v=sY1S34973zA",
+    "rentPrice": 3,
+    "salePrice": 15,
+    "likes": 95,
+    "availability": true
+  },
+  {
+    "title": "The Silence of the Lambs",
+    "description": "A young F.B.I. cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer, a madman who skins his victims.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg",
+    "stock": 3,
+    "trailerLink": "https://www.youtube.com/watch?v=W6Mm8Sbe__o",
+    "rentPrice": 4,
+    "salePrice": 20,
+    "likes": 89,
+    "availability": true
+  },
+  {
+    "title": "Star Wars: A New Hope",
+    "description": "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/8/87/StarWarsMoviePoster1977.jpg",
+    "stock": 8,
+    "trailerLink": "https://www.youtube.com/watch?v=1g3_CFmnU7k",
+    "rentPrice": 6,
+    "salePrice": 25,
+    "likes": 93,
+    "availability": true
+  },
+  {
+    "title": "The Matrix",
+    "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg",
+    "stock": 9,
+    "trailerLink": "https://www.youtube.com/watch?v=m8e-FF8MsqU",
+    "rentPrice": 5,
+    "salePrice": 22,
+    "likes": 87,
+    "availability": true
+  },
+  {
+    "title": "Jurassic Park",
+    "description": "During a preview tour, a theme park suffers a major power breakdown that allows its cloned dinosaur exhibits to run amok.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/9/93/Jurassic_Park_%28franchise_logo%29.png",
+    "stock": 7,
+    "trailerLink": "https://www.youtube.com/watch?v=lc0UehYemQA",
+    "rentPrice": 4,
+    "salePrice": 18,
+    "likes": 80,
+    "availability": true
+  },
+
+  {
+    "title": "Toy Story",
+    "description": "A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/1/13/Toy_Story.jpg",
+    "stock": 10,
+    "trailerLink": "https://www.youtube.com/watch?v=KYz2wyBy3kc",
+    "rentPrice": 2,
+    "salePrice": 10,
+    "likes": 88,
+    "availability": true
+  },
+  {
+    "title": "The Lion King",
+    "description": "Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/3/3d/The_Lion_King_poster.jpg",
+    "stock": 8,
+    "trailerLink": "https://www.youtube.com/watch?v=4sj1MT05lAA",
+    "rentPrice": 3,
+    "salePrice": 12,
+    "likes": 92,
+    "availability": true
+  },
+  {
+    "title": "Finding Nemo",
+    "description": "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/2/29/Finding_Nemo.jpg",
+    "stock": 12,
+    "trailerLink": "https://www.youtube.com/watch?v=wZdpNglLbt8",
+    "rentPrice": 2,
+    "salePrice": 11,
+    "likes": 87,
+    "availability": true
+  },
+  {
+    "title": "E.T. the Extra-Terrestrial",
+    "description": "A troubled child summons the courage to help a friendly alien escape Earth and return to his home world.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/6/66/E_t_the_extra_terrestrial_ver3.jpg",
+    "stock": 3,
+    "trailerLink": "https://www.youtube.com/watch?v=qYAETtIIClk",
+    "rentPrice": 2,
+    "salePrice": 10,
+    "likes": 87,
+    "availability": true
+  },
+  {
+    "title": "District 9",
+    "description": "An extraterrestrial race forced to live in slum-like conditions on Earth suddenly finds a kindred spirit in a government agent who is exposed to their biotechnology.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/d/df/District_nine_ver2.jpg",
+    "stock": 4,
+    "trailerLink": "https://www.youtube.com/watch?v=DyLUwOcR5pk",
+    "rentPrice": 3,
+    "salePrice": 12,
+    "likes": 64,
+    "availability": true
+  },
+  {
+    "title": "Arrival",
+    "description": "A linguist works with the military to communicate with alien lifeforms after twelve mysterious spacecraft appear around the world.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/d/df/Arrival%2C_Movie_Poster.jpg",
+    "stock": 2,
+    "trailerLink": "https://www.youtube.com/watch?v=ZLO4X6UI8OY",
+    "rentPrice": 4,
+    "salePrice": 18,
+    "likes": 91,
+    "availability": true
+  },
+  {
+    "title": "The Hangover",
+    "description": "Three friends wake up from a wild bachelor party in Las Vegas, with no memory of the previous night and the groom missing.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/b/b9/Hangoverposter09.jpg",
+    "stock": 7,
+    "trailerLink": "https://www.youtube.com/watch?v=tcdUhdOlz9M",
+    "rentPrice": 2.5,
+    "salePrice": 10,
+    "likes": 85,
+    "availability": true
+  },
+  {
+    "title": "Bridesmaids",
+    "description": "A maid of honor's life unravels as she leads her best friend and a group of colorful bridesmaids on a wild ride down the road to matrimony.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/d/df/Bridesmaids_Poster.jpg",
+    "stock": 4,
+    "trailerLink": "https://www.youtube.com/watch?v=FNppLrmdyug",
+    "rentPrice": 2,
+    "salePrice": 12,
+    "likes": 67,
+    "availability": true
+  },
+  {
+    "title": "Superbad",
+    "description": "Two co-dependent high school seniors are forced to deal with separation anxiety after their plan to stage a booze-soaked party goes awry.",
+    "posterLink": "https://upload.wikimedia.org/wikipedia/en/8/8b/Superbad_Poster.png",
+    "stock": 6,
+    "trailerLink": "https://www.youtube.com/watch?v=MNpoTxeydiY",
+    "rentPrice": 3,
+    "salePrice": 8,
+    "likes": 73,
+    "availability": true
   }
 ]

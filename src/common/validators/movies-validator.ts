@@ -4,8 +4,9 @@ import { Repository } from 'typeorm';
 import { CustomError } from '../template_method/custom-error.interface';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'src/users/entities/user.entity';
-import { MovieTransactionObject, Purchase } from 'src/sales/dto/buy-movies.dto';
-import { Order } from './order.entity';
+import { MovieTransactionObject } from 'src/sales/dto/buy-movies.dto';
+import { Order } from './entities/order.entity';
+import { ValidationResult } from '../template_method/validation-result';
 
 @Injectable()
 export class MoviesValidator {
@@ -16,7 +17,10 @@ export class MoviesValidator {
     private usersRepository: Repository<User>,
   ) {}
 
-  public async validate(orders: Order[], userId: number) {
+  public async validate(
+    orders: Order[],
+    userId: number,
+  ): Promise<ValidationResult> {
     const errors: CustomError[] = [];
     const movieObjects: MovieTransactionObject[] = [];
 
@@ -27,7 +31,7 @@ export class MoviesValidator {
 
     for (const order of orders) {
       const movie = await this.checkMovie(order.movieId);
-      const error = this.validateMovie(movie, order.movieId);
+      const error = this.validateMovie(movie, order.movieId, order.amount);
       if (error) {
         errors.push(error);
       } else {
@@ -38,19 +42,19 @@ export class MoviesValidator {
     return { errors, movieObjects, user };
   }
 
-  protected async checkMovie(movieId: number): Promise<Movie> {
+  async checkMovie(movieId: number): Promise<Movie> {
     const movie = await this.moviesRepository.findOneBy({ id: movieId });
     return movie;
   }
 
-  protected validateMovie(movie: Movie, movieId: number): CustomError {
+  validateMovie(movie: Movie, movieId: number, amount: number): CustomError {
     if (!movie) {
       return {
         message: `Movie #${movieId} not found`,
         status: HttpStatus.NOT_FOUND,
       };
     }
-    if (movie.stock === 0) {
+    if (movie.stock === 0 || movie.stock < amount) {
       return {
         message: `Movie #${movieId} out of stock`,
         status: HttpStatus.CONFLICT,
@@ -66,12 +70,12 @@ export class MoviesValidator {
     return null;
   }
 
-  protected async checkUser(userId: number): Promise<User> {
+  async checkUser(userId: number): Promise<User> {
     const user = await this.usersRepository.findOneBy({ id: userId });
     return user;
   }
 
-  protected validateUser(user: User): CustomError {
+  validateUser(user: User): CustomError {
     if (!user) {
       return { message: `User not found`, status: HttpStatus.NOT_FOUND };
     }

@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  ValidateNested,
+} from 'class-validator';
 import { Movie } from 'src/movies/entities/movie.entity';
 
 export class Purchase {
@@ -9,6 +14,7 @@ export class Purchase {
   movieId: number;
 
   @IsNumber()
+  @IsPositive()
   @IsNotEmpty()
   quantity: number;
 }

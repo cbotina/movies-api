@@ -10,7 +10,6 @@ import {
 export class QueryFilterDto {
   @ApiProperty({
     description: `Filter to search movies with certain title`,
-    example: `terminator`,
     required: false,
   })
   @MaxLength(64)
@@ -20,16 +19,16 @@ export class QueryFilterDto {
 
   @ApiProperty({
     description: `Filter to search available movies`,
-    example: true,
     required: false,
+    enum: ['true', 'false'],
   })
   @IsBooleanString()
   @IsOptional()
   availability?: string;
 
   @ApiProperty({
-    description: `Filter to search by tags, you can provide multiple tags separated by commas`,
-    example: `horror,drama,comedy`,
+    description: `Filter to search by tags, you can provide multiple tags separated by commas. e.g. "horror,drama"`,
+    type: String,
     required: false,
   })
   @IsArray()
@@ -38,8 +37,8 @@ export class QueryFilterDto {
   tags?: string[];
 
   @ApiProperty({
-    description: `Sort by title or likes. Add a '-' sign before the filter to specify a descendent order`,
-    example: `likes,-title`,
+    description: `Sort by title or likes. Add a '-' sign before the filter to specify a descendent order. Separate with commas e.g. "title,-likes"`,
+    type: String,
     required: false,
   })
   @IsArray()

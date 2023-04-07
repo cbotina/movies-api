@@ -7,18 +7,16 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
-import { BuyMovieValidator } from 'src/common/validators/buy-movie.validator';
-import { BuyMoviesDto, Purchase } from './dto/buy-movies.dto';
+import { Purchase } from './dto/buy-movies.dto';
 import { MoviesValidator } from 'src/common/validators/movies-validator';
 import { User } from 'src/users/entities/user.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
-import { Order } from 'src/common/validators/order.entity';
+import { Order } from 'src/common/validators/entities/order.entity';
 import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class SalesService {
   constructor(
-    private buyMovieValidator: BuyMovieValidator,
     private moviesValidator: MoviesValidator,
     private dataSource: DataSource,
     private mailService: MailService,
@@ -76,6 +74,7 @@ export class SalesService {
       await queryRunner.commitTransaction();
       return createdSale;
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       throw new BadRequestException(err.message);
     } finally {
       await queryRunner.release();
@@ -106,15 +105,21 @@ export class SalesService {
       },
     });
     if (!sale) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Sale not found`);
     }
     return sale;
   }
 
-  findOne(id: number) {
-    return this.salesRepository.findOne({
+  async findOne(id: number) {
+    const sale = await this.salesRepository.findOne({
       relations: { movie: true, user: true },
       where: { id },
     });
+
+    if (!sale) {
+      throw new NotFoundException(`Sale #${id} not found`);
+    }
+
+    return sale;
   }
 }

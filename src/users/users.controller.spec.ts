@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { createMockRepository } from '../test/helpers/mock-repository';
 import { User } from './entities/user.entity';
+import { MailService } from 'src/mail/mail.service';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -14,6 +15,7 @@ describe('UsersController', () => {
       providers: [
         UsersService,
         { provide: getRepositoryToken(User), useValue: createMockRepository() },
+        { provide: MailService, useValue: {} },
       ],
     }).compile();
 
