@@ -2,18 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "nest-cli.json",
+      "src": "src/main.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/movies",
-      "dest": "/api/movies"
-    },
-    {
-      "src": "/auth/login",
-      "dest": "/api/auth/login"
+      "src": "/(.*)",
+      "dest": "/src/main.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
     }
   ]
 }
